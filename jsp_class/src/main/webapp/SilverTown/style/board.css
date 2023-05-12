@@ -1,0 +1,51 @@
+.board-list {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.board-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.new-post-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-item {
+  background-color: #f8f9fa;
+}
+
+.post-title {
+  text-align: center;
+}
+
+.post-author,
+.post-date {
+  width: 15%;
+  text-align: center;
+}
+table {
+  border-collapse: collapse; /* 테이블 셀 간의 간격 없애기 */
+  width: 100%; /* 테이블이 가로로 꽉 차게 */
+  text-align: center;
+}
+
+th {
+  background-color: #ccc; /* 헤더 셀 배경색 */
+  border: 1px solid #999; /* 셀 경계선 */
+  padding: 8px; /* 안쪽 여백 */
+}
+
+td {
+  border: 1px solid #ddd; /* 셀 경계선 */
+  padding: 8px; /* 안쪽 여백 */
+}

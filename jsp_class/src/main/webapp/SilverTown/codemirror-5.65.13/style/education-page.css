@@ -1,0 +1,43 @@
+@charset "UTF-8";
+* {margin: 0; padding:0; box-sizing: border-box; text-decoration: none; color: black; font-weight: normal; font-size: 16px;
+list-style: none;  }
+/*span { display: block; }*/
+embed {	width: 70%;}
+#url-bpx span {
+	display:block;
+}
+.wrap {
+	width: 80%;
+	margin: 0 auto;
+}
+.flex-box {
+	display: flex;
+	width: 100%;
+}
+.list-box {
+	width: 30%;
+	padding: 20px;
+}
+.url-content {
+	margin-bottom: 200px;
+}
+
+
+.sub-url {
+	width: 100px;
+}
+.list li a {
+	display: block;
+	display: flex;
+	align-items: center;
+	/* border-bottom: 2px solid black; */
+}
+.list li{
+	width: 100%;
+	/* margin-bottom: 10px; */
+	padding: 20px;
+	border-top: 2px solid #000;
+	border: 2px solid #000; 
+	margin-bottom: 20px;
+	/*문호형 저 갈 것 같아요... [도키도키] */
+}
