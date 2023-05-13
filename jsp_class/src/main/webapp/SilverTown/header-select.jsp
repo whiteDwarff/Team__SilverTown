@@ -36,8 +36,7 @@
 		const li = document.querySelectorAll('nav a');
 		for(let i=0; i<li.length; i++) {
 			if( <%= lang %> == i+1) {
-				li[i].style.borderBottom = "2px solid orange";
-				li[i].style.paddingBottom = "5px";
+				li[i].style.borderBottom = "2px solid #73d09a";
 			}
 		}
 	</script>
