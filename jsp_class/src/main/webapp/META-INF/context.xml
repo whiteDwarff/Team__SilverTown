@@ -26,6 +26,7 @@
     <!--
     <Manager pathname="" />
     -->
+
 <Resource name ="jdbc/munho"
 	auth = "Container"
 	type="javax.sql.DataSource"

@@ -9,9 +9,9 @@
    
    Class.forName("org.mariadb.jdbc.Driver");
    
-    String url = "jdbc:mariadb://localhost:3306/project01_db";
-   String user = "munho";
-   String password = "1111";
+    String url = "jdbc:mariadb://localhost:3307/project01_db";
+   String user = "hunmyeong";
+   String password = "8524";
    
    try(Connection con = DriverManager.getConnection(url, user, password)) {
       String sql = "select * from video where category_id = ?";

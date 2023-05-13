@@ -44,7 +44,6 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 
 	<%@include file="./header.jsp"%>
 
-
 	<section id="board-section">
 		<div class="board-list">
 			<table class="table table-hover">
@@ -61,8 +60,7 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 					String pwd = rs.getString("created_date");
 				%>
 				<tr>
-					<td><a href="updateForm.jsp?id=<%=id%>"><%=id%></a></td>
-
+					<td><a href="board_content.jsp?title=<%=title%>"><%=title%></a></td>
 					<td><%=name%></td>
 					<td><%=pwd%></td>
 				</tr>

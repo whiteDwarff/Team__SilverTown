@@ -65,11 +65,11 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
         <%
-					Class.forName("org.mariadb.jdbc.Driver");
-					String url = "jdbc:mariadb://localhost:3306/project01_db";
-					String user = "munho";
-					String password = "1111";
-					String sql = "select * from video where category_id = ?";
+        Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3307/project01_db";
+		String user = "hunmyeong";
+		String password = "8524";
+		String sql = "select * from video where category_id = ?";
 					
 					try(Connection con = DriverManager.getConnection(url, user, password)) {
 				
