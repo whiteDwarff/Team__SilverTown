@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeGrow</title>
   <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-  <link rel="stylesheet" href="./style/index.css"> 
+  <link rel="stylesheet" href="./style/index.css?after"> 
   <link rel="stylesheet" href="./style/index-media.css"> 
 </head>
 
