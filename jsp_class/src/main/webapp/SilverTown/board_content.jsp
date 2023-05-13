@@ -28,6 +28,8 @@
 
 	String boardId = dto.getId();
 	String title = dto.getTitle();
+	//그냥충돌용!
+	String name323 = "name";
 	String content = dto.getContent();
 	String author_id = dto.getAuthor_id();
 	String created_at = dto.getCreated_at();
