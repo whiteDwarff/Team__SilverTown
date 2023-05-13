@@ -58,15 +58,15 @@ try (Connection con = ds.getConnection();
 			<%
 			//5. 결과집합 처리 
 			while (rs.next()) {
-				String id = rs.getString("title");
+				String title = rs.getString("title");
 				String name = rs.getString("author_name");
-				String pwd = rs.getString("created_date");
+				String date = rs.getString("created_date");
 			%>
 			<tr>
-				<td><a href="updateForm.jsp?id=<%=id%>"><%=id%></a></td>
+				<td><a href="board_content.jsp?title=<%=title%>"><%=title%></a></td>
 
 				<td><%=name%></td>
-				<td><%=pwd%></td>
+				<td><%=date%></td>
 			</tr>
 			<%
 			}
