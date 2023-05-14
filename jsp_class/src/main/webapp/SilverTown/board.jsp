@@ -38,7 +38,7 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 <meta charset="utf-8">
 <title>CodeGrow</title>
 <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-<link rel="stylesheet" href="./style/board.css?after">
+<link rel="stylesheet" href="./style/board.css">
 </head>
 <body>
 
@@ -55,28 +55,42 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 				<%
 				//5. 결과집합 처리 
 				while (rs.next()) {
-					String id = rs.getString("title");
+					String title = rs.getString("title");
 					String name = rs.getString("author_name");
-					String pwd = rs.getString("created_date");
+					String date = rs.getString("created_date");
 				%>
 				<tr>
 					<td><a href="board_content.jsp?title=<%=title%>"><%=title%></a></td>
 					<td><%=name%></td>
-					<td><%=pwd%></td>
+					<td><%=date%></td>
 				</tr>
 				<%
-				}
+					}
 				} catch (Exception e) {
-				e.printStackTrace();
+					e.printStackTrace();
 				}
 				%>
 			</table>
-			<a id="qna-button" href="border_content.jsp">문의하기</a>
+			<%
+				if(session.getAttribute("email") != null) {
+					out.println("<a id='qna-button' href='write.jsp'>문의하기</a>");
+				} else {
+					out.println("<a id='qna-button' href='login.jsp'>문의하기</a>");
+				}
+			%>
 		</div>
 	</section>
 
 	<%@include file="./footer.jsp"%>
 	<script src="./script/header.js"></script>
+	<script>
+		const li = document.querySelectorAll('nav a');
+		const liLast = document.querySelector('nav a:last-child');
+		for(let i=0; i<li.length; i++) {
+			li[i].style.filter = 'blur(1px)';
+		}
+		liLast.style.filter = 'blur(0)';
+	</script>
 </body>
 </html>
 
