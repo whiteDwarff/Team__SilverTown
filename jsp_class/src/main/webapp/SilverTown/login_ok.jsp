@@ -1,3 +1,5 @@
+<%@page import="Myeong.Hun.LoginDto"%>
+<%@page import="Myeong.Hun.LoginDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*"%>
 <%
@@ -5,50 +7,40 @@
 	String email = request.getParameter("email");
 	String pwd = request.getParameter("password");
 	
-	Class.forName("org.mariadb.jdbc.Driver");
 	
-	String url = "jdbc:mariadb://localhost:3306/project01_db";
-	String user = "munho";
-	String password = "1111";
+	LoginDao dao = new LoginDao();
+	LoginDto dto = new LoginDto();
 	
-	try(Connection con = DriverManager.getConnection(url, user, password)) {
-		
-		String sql = "select * from member where email=? and password=?";
-		
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, email);
-		pstmt.setString(2, pwd);
-		
-		ResultSet  rs = pstmt.executeQuery();
-		
-		if(rs.next()) {
-			String name = rs.getString("name");
-			session.setAttribute("email", email); 
-			session.setAttribute("name", name);
-			response.sendRedirect("index.jsp");
-		} else {
-%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-</head>
-<body>
-	<script>
-	  if(confirm("아이디 / 비밀번호를 다시 입력하세요.")) {
-			location.href="login.jsp";
-		} else {
-			history.back();
-		} 
-	</script>
-<%
-		}
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
-%>
-<%= email %>
-<%= password %>
-</body>
-</html>
+	dto.setEmail(email);
+	dto.setPassword(pwd);
+	
+	dto = dao.memberFunction(dto, "L");
+	
+	if(dto.getName() != null){
+		session.setAttribute("name", dto.getName());
+		session.setAttribute("email", dto.getEmail());
+		session.setAttribute("password", dto.getPassword());
+		session.setAttribute("phone_number", dto.getPhone_number());
+		session.setAttribute("created_at", dto.getCreated_at());
+		response.sendRedirect("index.jsp");
+	}else{
+		%>
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<meta charset="UTF-8">
+			<title>Insert title here</title>
+		</head>
+		<body>
+			<script>
+			  if(confirm("아이디 / 비밀번호를 다시 입력하세요.")) {
+					location.href="login.jsp";
+				} else {
+					history.back();
+				} 
+			</script>
+		</body>
+		</html>
+				<%
+				}
+		%>

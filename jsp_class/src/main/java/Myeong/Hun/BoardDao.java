@@ -22,7 +22,7 @@ public class BoardDao {
 	
 	private Connection getConnection() throws Exception{
 		InitialContext initCtx = new InitialContext();
-		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/project");
+		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/silvertown");
 		
 		Connection con = ds.getConnection();
 		

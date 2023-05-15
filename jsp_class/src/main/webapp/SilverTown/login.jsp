@@ -12,6 +12,8 @@
 
  <main class="center">
         <img src="./img/dev.jpg" alt="">
+        
+        <!-- 로그인 -->
         <article class="login" id="login">
             <div class="content-wrap">
                 <h2>Sign In</h2>
@@ -28,6 +30,8 @@
                 </div>
             </article>
         </article>
+        
+        <!-- 회원가입 -->
         <article id="join" class="center">
             <div class="content-wrap">
                 <h2>Create Account</h2>

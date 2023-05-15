@@ -46,5 +46,16 @@ password="8524"
 url="jdbc:mariadb://localhost:3307/project01_db"
 maxWait = "5000" 
 />
+
+<Resource name ="jdbc/silvertown"
+auth = "Container"
+type="javax.sql.DataSource"
+driverClassName = "org.mariadb.jdbc.Driver"
+username="silvertown"
+password="1111"
+url="jdbc:mariadb://localhost:3307/project01_db"
+maxWait = "5000" 
+/>
+
     
 </Context>
