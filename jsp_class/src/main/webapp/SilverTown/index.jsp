@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeGrow</title>
   <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-  <link rel="stylesheet" href="./style/index.css"> 
+  <link rel="stylesheet" href="./style/index.css?after"> 
   <link rel="stylesheet" href="./style/index-media.css"> 
 </head>
 
@@ -65,11 +65,11 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
         <%
-					Class.forName("org.mariadb.jdbc.Driver");
-					String url = "jdbc:mariadb://localhost:3306/project01_db";
-					String user = "munho";
-					String password = "1111";
-					String sql = "select * from video where category_id = ?";
+        Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/project01_db";
+		String user = "silvertown";
+		String password = "1111";
+		String sql = "select * from video where category_id = ?";
 					
 					try(Connection con = DriverManager.getConnection(url, user, password)) {
 				

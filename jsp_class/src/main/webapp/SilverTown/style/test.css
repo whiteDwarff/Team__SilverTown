@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+span {
+    display: block;
+}
+#main-content {
+    margin-top: 100px;
+}
+.qna-wrap {
+    width: 70%;
+    margin: 0 auto;
+}
+h3 {
+    font-size: 26px;
+}
+#count {
+	padding: 20px 0;
+	border-top: 2px solid rgb(244, 244, 244);
+	border-bottom: 2px solid rgb(244, 244, 244);
+	margin: 50px 0 20px 0;
+	color: #bbb;
+}
+.info-wrap{
+    margin: 30px 0 100px 0;
+    display: flex;
+}
+.flex-box {
+	display: flex;
+}
