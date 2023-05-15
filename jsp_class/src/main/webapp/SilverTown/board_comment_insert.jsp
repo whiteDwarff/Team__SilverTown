@@ -23,9 +23,10 @@
 	
 	
 	
-	InitialContext initCtx = new InitialContext();
-	Context ctx = (Context)initCtx.lookup("java:comp/env");
-	DataSource ds= (DataSource)ctx.lookup("jdbc/project");
+
+	  InitialContext initCtx = new InitialContext();
+	  Context ctx = (Context)initCtx.lookup("java:comp/env");
+	  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
 	
 	String sql = "INSERT INTO COMMENT (author_id, post_id, content) VALUES ((SELECT ID FROM MEMBER WHERE NAME = ?), ?, ?)";
 	

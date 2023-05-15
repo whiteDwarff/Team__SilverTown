@@ -9,10 +9,6 @@
  request.setCharacterEncoding("utf-8");
  String search = request.getParameter("search"); // 입력 폼에서 전달된 검색어 받아오기
 
-  // JDBC 드라이버 로드 및 DB 연결
- Class.forName("org.mariadb.jdbc.Driver");
- InitialContext initCtx = new InitialContext();
-
  Context ctx = (Context)initCtx.lookup("java:comp/env");
 
  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
