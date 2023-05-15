@@ -81,7 +81,7 @@
 
   Context ctx = (Context)initCtx.lookup("java:comp/env");
 
-  DataSource ds= (DataSource)ctx.lookup("jdbc/project");
+  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
   
   String sql = "SELECT C.CONTENT, C.CREATED_AT, M.NAME "
 			+ "FROM COMMENT C "

@@ -21,7 +21,7 @@ public class LoginDao {
 	private Connection getConnection() throws Exception{
 		
 		InitialContext initCtx = new InitialContext();
-		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/hunMyeong");
+		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/project01_db");
 		
 		Connection con = ds.getConnection();
 		

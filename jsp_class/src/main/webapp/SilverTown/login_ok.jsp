@@ -1,21 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.InitialContext"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String email = request.getParameter("email");
 	String pwd = request.getParameter("password");
 	
 	Class.forName("org.mariadb.jdbc.Driver");
+	InitialContext initCtx = new InitialContext();
+
+	Context ctx = (Context)initCtx.lookup("java:comp/env");
+
+	DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
+	String sql = "select * from member where email=? and password=?";
 	
-	String url = "jdbc:mariadb://localhost:3306/project01_db";
-	String user = "munho";
-	String password = "1111";
-	
-	try(Connection con = DriverManager.getConnection(url, user, password)) {
+	try(Connection con = ds.getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql);) {
 		
-		String sql = "select * from member where email=? and password=?";
 		
-		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, email);
 		pstmt.setString(2, pwd);
 		
@@ -49,6 +54,6 @@
 	}
 %>
 <%= email %>
-<%= password %>
+<%= pwd %>
 </body>
 </html>
