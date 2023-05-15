@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>   
+<%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 
 <%

@@ -17,9 +17,9 @@
   <body>
     <h1>글쓰기</h1>
     <form action="board_insert.jsp" method="post">
-      <input type="text" placeholder="제목">
-      <input type="text" placeholder="1" readonly> <!-- session.getAttribute("name")-->
-      <textarea placeholder="내용"></textarea>
+      <input name=title type="text" placeholder="제목">
+      <input name=author_name type="text" value=<%=session.getAttribute("name") %> readonly></input>
+      <input name="content" placeholder="내용"></input>
       <button type="submit">글쓰기</button>
     </form>
   </body>
