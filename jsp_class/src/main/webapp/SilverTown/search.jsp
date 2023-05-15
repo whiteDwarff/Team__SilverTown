@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.InitialContext"%>
 <%
  request.setCharacterEncoding("utf-8");
  String search = request.getParameter("search"); // 입력 폼에서 전달된 검색어 받아오기
 
   // JDBC 드라이버 로드 및 DB 연결
  Class.forName("org.mariadb.jdbc.Driver");
- String url = "jdbc:mariadb://localhost:3306/project01_db";
- String user = "munho";
- String password = "1111";
+ InitialContext initCtx = new InitialContext();
 
- try(Connection con = DriverManager.getConnection(url,user,password)){
+ Context ctx = (Context)initCtx.lookup("java:comp/env");
+
+ DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
+  String sql = "SELECT * FROM video WHERE title LIKE ?";
+
+ try(Connection con = ds.getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql);){
 
   // SQL 문 실행하여 결과값 가져오기
-  String sql = "SELECT * FROM video WHERE title LIKE ?";
-  PreparedStatement pstmt = con.prepareStatement(sql);
   pstmt.setString(1, "%" + search + "%"); // LIKE 연산자 사용하여 검색어와 일치하는 데이터 조회
   ResultSet rs = pstmt.executeQuery();
 %>

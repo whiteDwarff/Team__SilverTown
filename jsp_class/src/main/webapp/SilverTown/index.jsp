@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*" %>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.InitialContext"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,14 +70,16 @@
         <div class="url-card background-none"></div>
         <%
         Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/project01_db";
-		String user = "silvertown";
-		String password = "1111";
-		String sql = "select * from video where category_id = ?";
+        InitialContext initCtx = new InitialContext();
+
+        Context ctx = (Context)initCtx.lookup("java:comp/env");
+
+        DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
+				String sql = "select * from video where category_id = ?";
 					
-					try(Connection con = DriverManager.getConnection(url, user, password)) {
+					try(Connection con = ds.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql);) {
 				
-						PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "1");
 						
 						ResultSet rs = pstmt.executeQuery();
@@ -110,9 +116,9 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = DriverManager.getConnection(url, user, password)) {
+					try(Connection con = ds.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql);) {
 				
-						PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "2");
 						
 						ResultSet rs = pstmt.executeQuery();
@@ -149,9 +155,9 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = DriverManager.getConnection(url, user, password)) {
+					try(Connection con = ds.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql);) {
 				
-						PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "3");
 						
 						ResultSet rs = pstmt.executeQuery();
@@ -188,9 +194,9 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = DriverManager.getConnection(url, user, password)) {
+					try(Connection con = ds.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql);) {
 				
-						PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "4");
 						
 						ResultSet rs = pstmt.executeQuery();
@@ -227,9 +233,9 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = DriverManager.getConnection(url, user, password)) {
+					try(Connection con = ds.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql);) {
 				
-						PreparedStatement pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "5");
 						
 						ResultSet rs = pstmt.executeQuery();
