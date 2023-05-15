@@ -38,7 +38,7 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 <meta charset="utf-8">
 <title>CodeGrow</title>
 <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-<link rel="stylesheet" href="./style/board.css">
+<link rel="stylesheet" href="./style/board.css?after">
 </head>
 <body>
 
