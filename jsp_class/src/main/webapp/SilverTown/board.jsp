@@ -11,7 +11,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.Context"%>   
 <%@page import="javax.naming.InitialContext"%>
 <%
 request.setCharacterEncoding("utf-8");
@@ -38,7 +38,7 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 <meta charset="utf-8">
 <title>CodeGrow</title>
 <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-<link rel="stylesheet" href="./style/board.css">
+<link rel="stylesheet" href="./style/board.css?after">
 </head>
 <body>
 

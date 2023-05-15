@@ -1,29 +1,86 @@
 @charset "UTF-8";
 
 span {
-    display: block;
+    display: block;     
+    font-size: 13px;
 }
+a { color:black; cursor: pointer;}
 #main-content {
     margin-top: 100px;
 }
 .qna-wrap {
     width: 70%;
     margin: 0 auto;
+    padding-bottom: 70px;
+    border-bottom: 2px solid rgb(244, 244, 244);
+    position: relative;
 }
 h3 {
     font-size: 26px;
+    padding: 40px 20px;
+    background: rgb(244, 244, 244, 0.5);
 }
 #count {
 	padding: 20px 0;
-	border-top: 2px solid rgb(244, 244, 244);
 	border-bottom: 2px solid rgb(244, 244, 244);
-	margin: 50px 0 20px 0;
 	color: #bbb;
+	font-size: 12px;
 }
-.info-wrap{
-    margin: 30px 0 100px 0;
-    display: flex;
-}
+
 .flex-box {
 	display: flex;
 }
+.date {
+	margin: 30px 0;
+	color: #bbb;
+	font-size: 12px;
+}
+.name {
+	color: #105796;
+	margin-right: 100px;
+}
+.content { font-size: 13px; }
+.button-wrap {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}
+.button-wrap a:first-child {
+	margin-right:10px;
+}
+.button-wrap a:hover {
+	color: #FF4949;
+}
+/* main-content */
+.form-wrap {
+	width: 70%;
+	margin: 0 auto;
+	position: relative;
+	padding-bottom: 100px;
+}
+.form-wrap span {
+	margin: 30px 0;
+}
+
+.hidden {
+	display: none;
+}
+#comment {
+	width: 100%;
+	padding-left: 20px;
+	padding-bottom: 20%;
+	outline:none;
+}
+#submit-button {
+	display: block;
+	position: absolute;
+	bottom: 40px;
+	right: 0;
+	padding: 10px 20px;
+	background-color: #73d09a;
+	 color: #fff;
+	  border-style: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+}
+

@@ -57,7 +57,7 @@
 		 <span class="date"><%=created_at %></span>
 			<div class="flex-box">
 			   <span class="name"><%= name %></span>
-			   <p><%=content %></p>
+			   <p class="content"><%=content %></p>
 			</div>
 		    <div class="button-wrap"></div>
 		  <% if((String) session.getAttribute("name")!= null && session.getAttribute("name").equals(name)) { %>
@@ -69,13 +69,12 @@
 			    		;
 			    	btnWrap.insertAdjacentHTML('beforeend', template);
 		    	</script>
-		    <% } %>
+		  <% } %>
 	   </div>   <!-- qna-wrap -->
-	</section>
-	<section>
-	  <div class="qna-content-wrap">
-	  	<div class="info-wrap">
-	<hr>
+	</section><!-- main-content -->
+	
+	
+	<section id="sub-content">
 	<%
   //댓글 가져오기
   InitialContext initCtx = new InitialContext();
@@ -102,13 +101,16 @@
         	 String commentCREATED_AT = rs.getString("CREATED_AT");
         	 count ++;
          %>
-	  <span><%=commentName %></span>
-	  <span><%=commentCREATED_AT %></span>
-	</div>
-	<div class="content-wrap">
-		<span><%=commentCONTENT %></span>
-	</div>
+   <div class="qna-wrap">
+	 <div class="info-wrap">
+      <span class="date"><%=commentCREATED_AT %></span>
+	</div> <!-- info -wrap -->
+	<div class="flex-box">
+		<span class="name"><%=commentName %></span>
+		<span class="content"><%=commentCONTENT %></span>
+	</div> <!-- flex-box -->
 	<div class="button-wrap"></div>
+   </div> <!-- qna-wrap -->
 	
 	<% if(session.getAttribute("name").equals(commentName)) { %>
 	<script>
@@ -123,16 +125,19 @@
 		}
       }      
   	} catch (Exception e) {
-     	e.printStackTrace();
+     	e.printStackTrace();       
     }
     %>
-
-	<hr>
-	<form method="get" action="board_comment_insert.jsp">
-		<input type="text" placeholder="이름" name="comment_name"> 
-		<input type="text" placeholder="댓글 내용 입력" name="comment_content"> 
-		<input type="text" value="<%=boardId %>" name="board_Id"
-			class="comment_insert_id"> <input type="submit" value="등록">
+	</section>
+	<section id="form">
+	  <div class="form-wrap">
+	  <span>댓글작성</span>
+	  	<form method="get" action="board_comment_insert.jsp">
+		<!-- name, boardId는 display: none -->
+		<input type="text" placeholder="이름" name="comment_name" class="hidden"> 
+		<input type="text" name="comment_content" id="comment"> 
+		<input type="text" value="<%= boardId %>" name="board_Id" class="hidden">
+		<input type="submit" value="등록" id="submit-button">
 	</form>
 	  </div>
 	</section>
@@ -149,6 +154,7 @@
 		  location.href = "";
 		}
 	   const count = document.getElementById('count');
+	   
 	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count%>개)";
 	</script>
 </body>
