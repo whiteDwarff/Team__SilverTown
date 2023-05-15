@@ -74,7 +74,7 @@ public class LoginDao {
 			        member.setPassword(dto.getPassword());
 			        member.setPhone_number(dto.getPhone_number());
 			    }
-			}
+			}  
 			
 			//U = 정보수정
 			if(keyword.equals("U")) {
