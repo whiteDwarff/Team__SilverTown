@@ -1,3 +1,6 @@
+<%@page import="Myeong.Hun.VideoListDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Myeong.Hun.VideoListDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*" %>
 <%@page import="javax.sql.DataSource"%>
@@ -68,44 +71,31 @@
          <img src="./img/scroll-rt.png" class="scroll-img right">
         <div class="card-wrap">
         <div class="url-card background-none"></div>
-        <%
-        Class.forName("org.mariadb.jdbc.Driver");
-        InitialContext initCtx = new InitialContext();
+         <%
+			request.setCharacterEncoding("utf-8");
 
-        Context ctx = (Context)initCtx.lookup("java:comp/env");
-
-        DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
-				String sql = "select * from video where category_id = ?";
-					
-					try(Connection con = ds.getConnection(); 
-							PreparedStatement pstmt = con.prepareStatement(sql);) {
-				
-						pstmt.setString(1, "1");
-						
-						ResultSet rs = pstmt.executeQuery();
-						
-						while(rs.next()){
+			VideoListDao vldao = new VideoListDao();
+			String categoryId = "1";
+			ArrayList<VideoListDto> videoList = vldao.list(categoryId);
+			for (VideoListDto vldto : videoList) {
 				%>
-          <div class="url-card">
-            <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
-              <!-- ######### java 코드 삽입 영역#######-->
-              <!-- title -->
-              <span class="url-title"><%= rs.getString("title")%></span>
-              <!-- content -->
-              <span class="url-content"><%= rs.getString("description") %></span>
-              <!-- url -->
-              <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
-            </a>
-          </div>
- <%
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-%>
+  <div class="url-card">
+    <a href="education-page.jsp?title=<%=vldto.getTitle()%>&content=<%=vldto.getDescription()%>&url=<%=vldto.getUrl()%>&lang=<%=vldto.getCategory_id()%>">
+      <!-- ######### java 코드 삽입 영역#######-->
+      <!-- title -->
+      <span class="url-title"><%= vldto.getTitle() %></span>
+      <!-- content -->
+      <span class="url-content"><%= vldto.getDescription() %></span>
+      <!-- url -->
+      <embed controls=0 src="https://img.youtube.com/vi/<%= vldto.getUrl() %>/maxresdefault.jpg" allowfullscreen></embed>
+    </a>
+  </div>
+		  <%
+					}
+		  %>
         </div>
       </div>
-    </article><!--  html -->
+    </article>
   </section> 
   <section>
     <article id="script" class="relative">
@@ -116,34 +106,28 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = ds.getConnection(); 
-							PreparedStatement pstmt = con.prepareStatement(sql);) {
-				
-						pstmt.setString(1, "2");
-						
-						ResultSet rs = pstmt.executeQuery();
-						
-						while(rs.next()){
+			VideoListDao vldao2 = new VideoListDao();
+			String categoryId2 = "2";
+			ArrayList<VideoListDto> videoList2 = vldao.list(categoryId2);
+			for (VideoListDto vldto2 : videoList2) {
 				%>
-          <div class="url-card">
-            <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
-              <!-- ######### java 코드 삽입 영역#######-->
-              <!-- title -->
-              <span class="url-title"><%= rs.getString("title")%></span>
-              <!-- content -->
-              <span class="url-content"><%= rs.getString("description") %></span>
-              <!-- url -->
-              <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
-            </a>
-          </div>
+  <div class="url-card">
+    <a href="education-page.jsp?title=<%=vldto2.getTitle()%>&content=<%=vldto2.getDescription()%>&url=<%=vldto2.getUrl()%>&lang=<%=vldto2.getCategory_id()%>">
+      <!-- ######### java 코드 삽입 영역#######-->
+      <!-- title -->
+      <span class="url-title"><%= vldto2.getTitle() %></span>
+      <!-- content -->
+      <span class="url-content"><%= vldto2.getDescription() %></span>
+      <!-- url -->
+      <embed controls=0 src="https://img.youtube.com/vi/<%= vldto2.getUrl() %>/maxresdefault.jpg" allowfullscreen></embed>
+    </a>
+  </div>
 		  <%
 					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
 		  %>
         </div>
       </div>
+      
     </article> <!-- script  -->
     </section>
     <section>
@@ -155,32 +139,23 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = ds.getConnection(); 
-							PreparedStatement pstmt = con.prepareStatement(sql);) {
-				
-						pstmt.setString(1, "3");
-						
-						ResultSet rs = pstmt.executeQuery();
-						
-						while(rs.next()){
+			VideoListDao vldao3 = new VideoListDao();
+			String categoryId3 = "3";
+			ArrayList<VideoListDto> videoList3 = vldao.list(categoryId3);
+			for (VideoListDto vldto3 : videoList3) {
 				%>
-          <div class="url-card">
-           <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
-              <!-- ######### java 코드 삽입 영역#######-->
-              <!-- title -->
-              <span class="url-title"><%= rs.getString("title")%></span>
-              <!-- content -->
-              <span class="url-content"><%= rs.getString("description") %></span>
-              <!-- url -->
-              <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
-            </a>
-          </div>
-		  <%
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-		  %>
+  <div class="url-card">
+    <a href="education-page.jsp?title=<%=vldto3.getTitle()%>&content=<%=vldto3.getDescription()%>&url=<%=vldto3.getUrl()%>&lang=<%=vldto3.getCategory_id()%>">
+      <!-- ######### java 코드 삽입 영역#######-->
+      <!-- title -->
+      <span class="url-title"><%= vldto3.getTitle() %></span>
+      <!-- content -->
+      <span class="url-content"><%= vldto3.getDescription() %></span>
+      <!-- url -->
+      <embed controls=0 src="https://img.youtube.com/vi/<%= vldto3.getUrl() %>/maxresdefault.jpg" allowfullscreen></embed>
+    </a>
+  </div>
+		  <%}%>
         </div>
       </div>
     </article> <!-- database  -->
@@ -194,32 +169,23 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = ds.getConnection(); 
-							PreparedStatement pstmt = con.prepareStatement(sql);) {
-				
-						pstmt.setString(1, "4");
-						
-						ResultSet rs = pstmt.executeQuery();
-						
-						while(rs.next()){
+			VideoListDao vldao4 = new VideoListDao();
+			String categoryId4 = "4";
+			ArrayList<VideoListDto> videoList4 = vldao.list(categoryId4);
+			for (VideoListDto vldto4 : videoList4) {
 				%>
-          <div class="url-card">
-            <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
-              <!-- ######### java 코드 삽입 영역#######-->
-              <!-- title -->
-              <span class="url-title"><%= rs.getString("title")%></span>
-              <!-- content -->
-              <span class="url-content"><%= rs.getString("description") %></span>
-              <!-- url -->
-              <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
-            </a>
-          </div>
-		  <%
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-		  %>
+  <div class="url-card">
+    <a href="education-page.jsp?title=<%=vldto4.getTitle()%>&content=<%=vldto4.getDescription()%>&url=<%=vldto4.getUrl()%>&lang=<%=vldto4.getCategory_id()%>">
+      <!-- ######### java 코드 삽입 영역#######-->
+      <!-- title -->
+      <span class="url-title"><%= vldto4.getTitle() %></span>
+      <!-- content -->
+      <span class="url-content"><%= vldto4.getDescription() %></span>
+      <!-- url -->
+      <embed controls=0 src="https://img.youtube.com/vi/<%= vldto4.getUrl() %>/maxresdefault.jpg" allowfullscreen></embed>
+    </a>
+  </div>
+		  <%}%>
         </div>
       </div>
     </article> <!-- jsp  -->
@@ -233,32 +199,23 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
-					try(Connection con = ds.getConnection(); 
-							PreparedStatement pstmt = con.prepareStatement(sql);) {
-				
-						pstmt.setString(1, "5");
-						
-						ResultSet rs = pstmt.executeQuery();
-						
-						while(rs.next()){
+			VideoListDao vldao5 = new VideoListDao();
+			String categoryId5 = "5";
+			ArrayList<VideoListDto> videoList5 = vldao.list(categoryId5);
+			for (VideoListDto vldto5 : videoList5) {
 				%>
-          <div class="url-card">
-            <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
-              <!-- ######### java 코드 삽입 영역#######-->
-              <!-- title -->
-              <span class="url-title"><%= rs.getString("title")%></span>
-              <!-- content -->
-              <span class="url-content"><%= rs.getString("description") %></span>
-              <!-- url -->
-              <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
-            </a>
-          </div>
-		  <%
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-		  %>
+  <div class="url-card">
+    <a href="education-page.jsp?title=<%=vldto5.getTitle()%>&content=<%=vldto5.getDescription()%>&url=<%=vldto5.getUrl()%>&lang=<%=vldto5.getCategory_id()%>">
+      <!-- ######### java 코드 삽입 영역#######-->
+      <!-- title -->
+      <span class="url-title"><%= vldto5.getTitle() %></span>
+      <!-- content -->
+      <span class="url-content"><%= vldto5.getDescription() %></span>
+      <!-- url -->
+      <embed controls=0 src="https://img.youtube.com/vi/<%= vldto5.getUrl() %>/maxresdefault.jpg" allowfullscreen></embed>
+    </a>
+  </div>
+		  <%}%>
         </div>
       </div>
     </article> <!-- spring  -->

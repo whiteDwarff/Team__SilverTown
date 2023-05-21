@@ -22,7 +22,7 @@ public class VideoListDao {
 	
 	private Connection getConnection() throws Exception{
 		InitialContext initCtx = new InitialContext();
-		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/silvertown");
+		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/project01_db");
 		
 		Connection con = ds.getConnection();
 		
