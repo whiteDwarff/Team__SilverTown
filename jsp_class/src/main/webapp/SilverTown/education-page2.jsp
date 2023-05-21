@@ -207,6 +207,6 @@
    <%@include file="./footer.jsp"%>
    <script src="./script/theme.js"></script>
    <script src="./script/education-page.js"></script>
-   <script src="./script/header1.js?after"></script>
+   <script src="./script/header.js?after"></script>
 </body>
 </html>

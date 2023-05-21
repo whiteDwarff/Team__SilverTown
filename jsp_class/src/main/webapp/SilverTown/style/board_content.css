@@ -28,7 +28,7 @@ h3 {
 }
 
 .flex-box {
-	display: flex;
+    display: flex;
 	width: 100%;
 }
 .date {
@@ -49,7 +49,7 @@ h3 {
 .button-wrap a:first-child {
 	margin-right:10px;
 }
-.button-wrap a:hover {
+.button-wrap *:hover {
 	color: #FF4949;
 }
 /* main-content */
@@ -77,6 +77,36 @@ h3 {
 	position: absolute;
 	bottom: 40px;
 	right: 0;
+}
+#main-update-button {
+	display: inline;
+	font-size: 16px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.hidden-form-wrap {
+	width: 80%;
+}
+.hidden-form-wrap form {
+	font-size: 12px;
+	margin-top: 30px;
+}
+.update-input {
+	width: calc(90% - 50px);
+	padding: 10px 0; 
+	outline: none;
+	box-sizing: border-box;
+}
+#main-hidden-form button{
+	padding: 12px 15px;
+	font-size: 12px;
+    margin-left: 10px;
+}
+.hidden {
+	display: none;
+}
+button {
 	padding: 10px 20px;
 	background-color: #73d09a;
 	color: #fff;
@@ -84,16 +114,3 @@ h3 {
 	border-radius: 5px;
 	cursor: pointer;
 }
-#hidden-form-wrap {
-	width: 80%;
-	margin: 30px 0;
-}
-.update-input {
-	width: 100%;
-	
-}
-
-.hidden {
-	display: hidden;
-}
-

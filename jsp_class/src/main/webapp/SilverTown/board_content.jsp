@@ -45,7 +45,8 @@
 <meta charset="UTF-8">
 <title>CodeGrow</title>
 <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-<link rel="stylesheet" href="./style/test.css">
+<!-- <link rel="stylesheet" href="./style/test.css?after"> -->
+<link rel="stylesheet" href="./style/board_content.css?after">
 </head>
 <body>
 	<%@include file="./header.jsp"%>
@@ -57,16 +58,21 @@
 		 <span class="date"><%=created_at %></span>
 			<div class="flex-box">
 			   <span class="name"><%= name %></span>
-			   <p class="content"><%=content %></p>
+			   <div class="hidden-form-wrap">
+			   	   <p class="content"><%=content %></p>
+			   	   <form class="hidden" id="main-hidden-form">
+				 	<input class="update-input">
+				 	<button >제출</button>
+	        	   </form>
+			   </div>
 			</div>
 		    <div class="button-wrap"></div>
 		  <% if((String) session.getAttribute("name")!= null && session.getAttribute("name").equals(name)) { %>
 		    	<script>
 			    	const btnWrap = document.getElementsByClassName('button-wrap')[0];
 			    	let template = 
-			    		"<a href='boardUpdate.jsp?title=<%=title%>'>수정</a>" +
-			    		"<a onclick='confirmDelete()'>삭제</a>"
-			    		;
+			    		"<span id='main-update-button'>수정</span>" +
+			    		"<a onclick='confirmDelete()'>삭제</a>";
 			    	btnWrap.insertAdjacentHTML('beforeend', template);
 		    	</script>
 		  <% } %>
@@ -117,8 +123,8 @@
 	/* onclick="confirmCommentDelete"  */
 		const btnWrap2nd = document.getElementsByClassName('button-wrap')[1];
 	    let template = 
-			"<button>수정</button>" +
-			"<button>삭제</button>"
+			"<a id='update-button'>수정</a>" +
+			"<a href='#'>삭제</a>"
 			btnWrap2nd.insertAdjacentHTML('beforeend', template);
 	</script>
 	<% 
@@ -137,25 +143,16 @@
 		<input type="text" placeholder="이름" name="comment_name" class="hidden"> 
 		<input type="text" name="comment_content" id="comment"> 
 		<input type="text" value="<%= boardId %>" name="board_Id" class="hidden">
-		<input type="submit" value="등록" id="submit-button">
+		<button id="submit-button">등록</button>
 	</form>
 	  </div>
 	</section>
 	<%@include file="./footer.jsp"%>
 	<script src="./script/header.js"></script>
+	<script src="./script/border-content.js?after" type="module"></script>
 	<script>
-	  function confirmDelete() {
-        if (confirm("삭제하시겠습니까?")) 
-          location.href = "boardDelete.jsp?boardId=<%=boardId%>";
-		}
-
-	   function confirmCommentDelete() {
-		if (confirm("댓글을 삭제 하시겠습니까?")) 
-		  location.href = "";
-		}
 	   const count = document.getElementById('count');
-	   
-	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count%>개)";
+	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count %>개)";
 	</script>
 </body>
 </html>
