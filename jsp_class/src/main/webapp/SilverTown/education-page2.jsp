@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" import="java.sql.*"%>
+	pageEncoding="UTF-8" import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
 <%@page import="javax.naming.Context"%>
@@ -36,20 +36,26 @@
 <link rel="stylesheet" href="./style/education.css?after">
 <link rel="stylesheet" href="./codemirror-5.65.13/lib/codemirror.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/3024-day.css">
-<link rel="stylesheet" href="./codemirror-5.65.13/theme/base16-light.css">
-<link rel="stylesheet" href="./codemirror-5.65.13/theme/duotone-dark.css">
-<link rel="stylesheet" href="./codemirror-5.65.13/theme/duotone-light.css">
+<link rel="stylesheet"
+	href="./codemirror-5.65.13/theme/base16-light.css">
+<link rel="stylesheet"
+	href="./codemirror-5.65.13/theme/duotone-dark.css">
+<link rel="stylesheet"
+	href="./codemirror-5.65.13/theme/duotone-light.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/eclipse.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/hopscotch.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/juejin.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/lucario.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/material.css">
-<link rel="stylesheet" href="./codemirror-5.65.13/theme/material-palenight.css">
+<link rel="stylesheet"
+	href="./codemirror-5.65.13/theme/material-palenight.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/mdn-like.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/neat.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/neo.css">
-<link rel="stylesheet" href="./codemirror-5.65.13/theme/oceanic-next.css">
-<link rel="stylesheet" href="./codemirror-5.65.13/theme/paraiso-light.css">
+<link rel="stylesheet"
+	href="./codemirror-5.65.13/theme/oceanic-next.css">
+<link rel="stylesheet"
+	href="./codemirror-5.65.13/theme/paraiso-light.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/railscasts.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/shadowfox.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/solarized.css">
@@ -59,103 +65,128 @@
 </head>
 <body>
 
-   <%@include file="./header.jsp"%>
+	<%@include file="./header.jsp"%>
 
-   <section id="url-box">
-      <div class="wrap">
-         <div class="flex-box">
-            <embed id="main-url"
-               src="https://www.youtube.com/embed/<%= urlLink %>?showinfo=0&modestbranding=1&rel=0"
-               title="YouTube video player" frameborder="0"
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-               allowfullscreen></embed>
-            <div class="list-box">
-               <h2 class="url-title"><%= title %></h2>
-               <h4 class="url-content"><%= content %></h4>
-               <ul class="list">
-                  <div class="scroll-box">
-                     <%
+	<section id="url-box">
+		<div class="wrap">
+			<div class="flex-box">
+				<embed id="main-url"
+					src="https://www.youtube.com/embed/<%= urlLink %>?showinfo=0&modestbranding=1&rel=0"
+					title="YouTube video player" frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen></embed>
+				<div class="list-box">
+					<h2 class="url-title"><%= title %></h2>
+					<h4 class="url-content"><%= content %></h4>
+					<!------------------------------------------------------------찜 버튼  ------------------------------------------->
+					<button id="addToFavoritesBtn">관심목록 추가</button>
+
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script>
+					  $(document).ready(function() {
+					    $('#addToFavoritesBtn').click(function() {
+					    	var title = '<%= title %>';
+					      $.ajax({
+					        url: 'wishList_ok.jsp', // 스크립틀릿이 포함된 JSP 파일 경로
+					        data: { title: title },
+					        type: 'POST',
+					        success: function(response) {
+					          // 서버에서 반환한 응답을 처리하는 로직을 구현해주세요.
+					          // 예: 알림창 띄우기, 화면 갱신 등
+					          alert('강의가 찜 되었습니다!');
+					        },
+					        error: function(xhr, status, error) {
+					          // 에러 발생 시 처리할 로직을 구현해주세요.
+					        }
+					      });
+					    });
+					  });
+					</script>
+					<ul class="list">
+						<div class="scroll-box">
+							<%
                     while(rs.next()){
                   %>
-                     <!-- list -->
-                    <li>
-                     <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
-                       <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg"
-                        allowfullscreen class="sub-url"></embed>
-                     <div>
-                       <span class="sub-url-title"><%= rs.getString("title")%></span>
-                       <span class="sub-url-content"><%= rs.getString("description")%></span>
-                     </div>
-                     </a>
-                    </li>
-                     <!-- end  -->
-                     <% 
+							<!-- list -->
+							<li><a
+								href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
+									<embed controls=0
+										src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg"
+										allowfullscreen class="sub-url"></embed>
+									<div>
+										<span class="sub-url-title"><%= rs.getString("title")%></span>
+										<span class="sub-url-content"><%= rs.getString("description")%></span>
+									</div>
+							</a></li>
+							<!-- end  -->
+							<% 
                       	} 
                       } catch(Exception e) {
                         e.printStackTrace();
                     }
                   	%>
-                  </div>
-               </ul>
-            </div>
-         </div>
-      </div>
-    </section>
-    
-    
-    <!-- code editor -->
-	<section id="code-editor">
-	  <article class="wrap">
-	  	<div class="flex-box margin-bottom">
-			<h2>Review Your Code</h2>
-			<p>
-				Select a theme: <select onchange="selectTheme()" id=select>
-					<option value="1">default</option>
-					<option>3024-day</option>
-					<option>base16-light</option>
-					<option>duotone-dark</option>
-					<option>duotone-light</option>
-					<option>eclipse</option>
-					<option>hopscotch</option>
-					<option>juejin</option>
-					<option>lucario</option>
-					<option>material</option>
-					<option>material-palenight</option>
-					<option >mdn-like</option>
-					<option>neat</option>
-					<option>neo</option>
-					<option>oceanic-next</option>
-					<option>paraiso-light</option>
-					<option>railscasts</option>
-					<option>shadowfox</option>
-					<option>xq-light</option>
-					<option>yeti</option>
-					<option>zenburn</option>
-				</select>
-			</p>
+						</div>
+					</ul>
+				</div>
+			</div>
 		</div>
-		  <div style="display: flex;">
-		    <div class=CodeMirror style="flex: 1;" id="aa">
-			<textarea id="code" name="code">
+	</section>
+
+
+
+	<!-- code editor -->
+	<section id="code-editor">
+		<article class="wrap">
+			<div class="flex-box margin-bottom">
+				<h2>Review Your Code</h2>
+				<p>
+					Select a theme: <select onchange="selectTheme()" id=select>
+						<option value="1">default</option>
+						<option>3024-day</option>
+						<option>base16-light</option>
+						<option>duotone-dark</option>
+						<option>duotone-light</option>
+						<option>eclipse</option>
+						<option>hopscotch</option>
+						<option>juejin</option>
+						<option>lucario</option>
+						<option>material</option>
+						<option>material-palenight</option>
+						<option>mdn-like</option>
+						<option>neat</option>
+						<option>neo</option>
+						<option>oceanic-next</option>
+						<option>paraiso-light</option>
+						<option>railscasts</option>
+						<option>shadowfox</option>
+						<option>xq-light</option>
+						<option>yeti</option>
+						<option>zenburn</option>
+					</select>
+				</p>
+			</div>
+			<div style="display: flex;">
+				<div class=CodeMirror style="flex: 1;" id="aa">
+					<textarea id="code" name="code">
 			<html style="color: green">
 			  <!-- this is a comment -->
 			<head>
 			 <title>Mixed HTML Example</title>
 			 <style>
-					h1 {
-						font-family: comic sans;
-						color: #f0f;
-					}
-					
-					div {
-						background: yellow !important;
-					}
-					
-					body {
-						max-width: 50em;
-						margin: 1em 2em 1em 5em;
-					}
-			</style>
+h1 {
+	font-family: comic sans;
+	color: #f0f;
+}
+
+div {
+	background: yellow !important;
+}
+
+body {
+	max-width: 50em;
+	margin: 1em 2em 1em 5em;
+}
+</style>
 			  </head>
 			  <body>
 			    <h1>Mixed HTML Example</h1>
@@ -169,15 +200,15 @@
 
 			</textarea>
 
+				</div>
+				<div style="flex: 1;">
+					<iframe class=CodeMirror id="output"></iframe>
+				</div>
 			</div>
-			<div style="flex: 1;">
-			   <iframe class=CodeMirror id="output"></iframe>
-			</div>
-		</div>
-		<button id="run-button" onclick="runCode()">Run</button>
+			<button id="run-button" onclick="runCode()">Run</button>
 		</article>
 	</section>
-    
+
 	<script>
 		const option = document.getElementsByTagName('option');
 		
@@ -196,17 +227,17 @@
           output.close();
           }
     </script>
-    <script src="./codemirror-5.65.13/lib/codemirror.js"></script>
+	<script src="./codemirror-5.65.13/lib/codemirror.js"></script>
 	<script src="./codemirror-5.65.13/mode/javascript/javascript.js"></script>
 	<script src="./codemirror-5.65.13/mode/css/css.js"></script>
-	<script src="./codemirror-5.65.13/mode/htmlmixed/htmlmixed.js"></script>	
+	<script src="./codemirror-5.65.13/mode/htmlmixed/htmlmixed.js"></script>
 	<script src="./codemirror-5.65.13/mode/javascript/javascript.js"></script>
-    
-    
-    
-   <%@include file="./footer.jsp"%>
-   <script src="./script/theme.js"></script>
-   <script src="./script/education-page.js"></script>
-   <script src="./script/header.js?after"></script>
+
+
+
+	<%@include file="./footer.jsp"%>
+	<script src="./script/theme.js"></script>
+	<script src="./script/education-page.js"></script>
+	<script src="./script/header.js?after"></script>
 </body>
 </html>

@@ -57,7 +57,7 @@
             <img src="./img/login.jpg" alt="">
           </div>
           <div class="label-box">
-            <a href="#">관심 목록</a>
+            <a href="wishList.jsp">관심 목록</a>
             <a href="update.jsp">계정</a>
             <!-- session이 있다면 하단 태그는 로그아웃 버튼으로 변경 -->
           <%    

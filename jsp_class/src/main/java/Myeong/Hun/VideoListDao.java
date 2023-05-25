@@ -31,7 +31,7 @@ public class VideoListDao {
 	
 	public ArrayList<VideoListDto> list(String categoryId){
 		String sql = "select * from video where category_id = ?";
-		ArrayList<VideoListDto> vldtos = new ArrayList<VideoListDto>();
+		ArrayList<VideoListDto> dto = new ArrayList<VideoListDto>();
 	
 	
 	try(Connection con = getConnection();
@@ -50,13 +50,42 @@ public class VideoListDao {
 			vldto.setUploader_id(rs.getString("uploader_id"));
 			vldto.setUrl(rs.getString("url"));
 			
-			vldtos.add(vldto);
+			dto.add(vldto);
 		}
 	}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return vldtos;
+		return dto;
 	}
+	
+	public VideoListDto getVideoByTitle(String title){
+		String sql = "select * from video where title = ?";
+		VideoListDto dto = new VideoListDto();
+	
+	
+	try(Connection con = getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);)
+	{
+		pstmt.setString(1, title);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			dto.setCategory_id(rs.getString("category_id"));
+			dto.setDescription(rs.getString("description"));
+			dto.setId(rs.getString("id"));
+			dto.setTitle(rs.getString("title"));
+			dto.setUploaded_at(rs.getString("uploaded_at"));
+			dto.setUploader_id(rs.getString("uploader_id"));
+			dto.setUrl(rs.getString("url"));
+		}
+	}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+
 
 }

@@ -31,8 +31,8 @@ public class MemberDto {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public void memberDto() {}
-	public void memberDto(String name, String email, String password, String phone) {
+	public MemberDto() {}
+	public MemberDto(String name, String email, String password, String phone) {
 		this.name = name;
 		this.email = email;
 		this.password = password;

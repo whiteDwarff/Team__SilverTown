@@ -41,7 +41,7 @@ public class MemberDao {
 		return dto;
 	}
 	
-	public void memberFunction(String name, String email, String password, String phone, String keyword) {
+	public void memberFunction(MemberDto dto,String keyword) {
 		
 		String sql = "";
 		PreparedStatement pstmt = null;
@@ -51,20 +51,20 @@ public class MemberDao {
 				sql = "insert into member (name, email, password, phone_number) values(?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setString(1, name);
-				pstmt.setString(2, email);
-				pstmt.setString(3, password);
-				pstmt.setString(4, phone);
+				pstmt.setString(1, dto.getName());
+				pstmt.setString(2, dto.getEmail());
+				pstmt.setString(3, dto.getPassword());
+				pstmt.setString(4, dto.getPhone());
 				
 				pstmt.executeUpdate();
 				
 			} else if(keyword.equals("U")) {
-				sql = "update member set  password = ?, phone = ? where email = ?";
+				sql = "update member set  password = ?, phone_number = ? where email = ?";
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setString(1, password);
-				pstmt.setString(2, phone);
-				pstmt.setString(3, email);
+				pstmt.setString(1, dto.getPassword());
+				pstmt.setString(2, dto.getPhone());
+				pstmt.setString(3, dto.getEmail());
 				
 				pstmt.executeUpdate();
 				
@@ -72,7 +72,7 @@ public class MemberDao {
 				sql = "delete from member where email = ?";
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setString(1, email);
+				pstmt.setString(1, dto.getEmail());
 
 				pstmt.executeUpdate();
 			}
