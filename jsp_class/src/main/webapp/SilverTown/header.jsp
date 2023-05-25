@@ -34,7 +34,7 @@
       <div class="slide-wrap">
         <form action="search.jsp" method="post">
           <img src="./img/search.png" alt="">
-          <input type="text" placeholder="codegrow.com 검색하기" name="search">
+          <input type="text" placeholder="codegrow.com 검색하기" name="search" id="search-input">
         </form>
       </div>
     </div>
@@ -47,7 +47,7 @@
         		out.println("<span id='login-span'>저장해둔 항목이 있는지 확인하려면 <a href='login.jsp'>로그인</a>하세요</span>");
         	} else {
         %>
-        <span id='login-span'><%= session.getAttribute("email") %>님 환영합니다.</span>
+        <span id='login-span'><%= session.getAttribute("name") %>님 환영합니다.</span>
         <% } %>
         <span id="profile">내프로필</span>
         <div class="box-wrap">
@@ -58,7 +58,7 @@
           </div>
           <div class="label-box">
             <a href="#">관심 목록</a>
-            <a href="#">계정</a>
+            <a href="update.jsp">계정</a>
             <!-- session이 있다면 하단 태그는 로그아웃 버튼으로 변경 -->
           <%    
         	if(session.getAttribute("email") == null) {
@@ -72,6 +72,6 @@
       </div>
     </div>
   </header> <!-- header -->
-	<!-- <script src="./script/header.js"></script> -->
+  <!-- <script src="./script/header.js"></script> -->
 </body>
 </html>

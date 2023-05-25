@@ -17,7 +17,7 @@ public class MemberDao {
 		return con;
 	}
 	public MemberDto loginDao(String emeil, String passwrod) {
-		String sql = "select * from member where id = ?, password = ?";
+		String sql = "select * from member where email = ? and password = ?";
 		MemberDto dto = new MemberDto();
 		
 		try(Connection con = getConnection(); 
@@ -33,32 +33,53 @@ public class MemberDao {
 				dto.setEmail(rs.getString("email"));
 				dto.setPassword(rs.getString("password"));
 				dto.setPhone(rs.getString("phone_number"));
-			}
+			} 
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return dto;
 	}
+	
 	public void memberFunction(String name, String email, String password, String phone, String keyword) {
 		
 		String sql = "";
 		PreparedStatement pstmt = null;
+		
 		try (Connection con = getConnection();){
 			if(keyword.equals("I")) {
-				sql = "insert into member value()";
+				sql = "insert into member (name, email, password, phone_number) values(?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, name);
+				pstmt.setString(2, email);
+				pstmt.setString(3, password);
+				pstmt.setString(4, phone);
+				
+				pstmt.executeUpdate();
 				
 			} else if(keyword.equals("U")) {
+				sql = "update member set  password = ?, phone = ? where email = ?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, password);
+				pstmt.setString(2, phone);
+				pstmt.setString(3, email);
+				
+				pstmt.executeUpdate();
 				
 			} else if(keyword.equals("D")) {
+				sql = "delete from member where email = ?";
+				pstmt = con.prepareStatement(sql);
 				
+				pstmt.setString(1, email);
+
+				pstmt.executeUpdate();
 			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
-		
-		
+		} 
 		
 	}
 }

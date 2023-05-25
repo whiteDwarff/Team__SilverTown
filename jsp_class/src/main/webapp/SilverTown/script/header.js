@@ -3,7 +3,7 @@ const navImg = document.querySelectorAll('.sub-gnb img'),
       header = document.querySelector('header');
       section = document.querySelectorAll('section'),
       form = document.getElementsByTagName('form')[0],
-      input = document.getElementsByTagName('input')[0];
+      input = document.getElementById('search-input');
 let isSlideState = true;
       
 for(let i=0; i<navImg.length; i++){

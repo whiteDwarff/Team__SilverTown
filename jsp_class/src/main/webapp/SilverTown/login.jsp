@@ -16,7 +16,7 @@
             <div class="content-wrap">
                 <h2>Sign In</h2>
                 <form action="login_ok.jsp" method="post" id="login-form">
-                    <input type="text" name="email" placeholder="이메일">
+                    <input type="email" name="email" placeholder="이메일">
                     <input type="password" name="password" placeholder="비밀번호">
                     <input id="login-submit-btn" class="submit-button" type="submit" value="로그인">
                 </form>

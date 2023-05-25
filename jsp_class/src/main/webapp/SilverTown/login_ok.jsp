@@ -1,59 +1,33 @@
+<%@page import="member.MemberDto"%>
+<%@page import="member.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*"%>
-<%@page import="javax.sql.DataSource"%>
-<%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>
-<%@page import="javax.naming.InitialContext"%>
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <title>Insert title here</title>
+</head>
+<body>
 <%
 	request.setCharacterEncoding("utf-8");
 	String email = request.getParameter("email");
 	String pwd = request.getParameter("password");
 	
-	Class.forName("org.mariadb.jdbc.Driver");
-	InitialContext initCtx = new InitialContext();
-
-	Context ctx = (Context)initCtx.lookup("java:comp/env");
-
-	DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
-	String sql = "select * from member where email=? and password=?";
+	MemberDao dao = new MemberDao();
+	MemberDto dto = dao.loginDao(email, pwd);
 	
-	try(Connection con = ds.getConnection(); 
-			PreparedStatement pstmt = con.prepareStatement(sql);) {
-		
-		
-		pstmt.setString(1, email);
-		pstmt.setString(2, pwd);
-		
-		ResultSet  rs = pstmt.executeQuery();
-		
-		if(rs.next()) {
-			String name = rs.getString("name");
-			session.setAttribute("email", email); 
-			session.setAttribute("name", name);
-			response.sendRedirect("index.jsp");
-		} else {
-%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-</head>
-<body>
-	<script>
-	  if(confirm("아이디 / 비밀번호를 다시 입력하세요.")) {
-			location.href="login.jsp";
-		} else {
-			history.back();
-		} 
-	</script>
-<%
-		}
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
-%>
-<%= email %>
-<%= pwd %>
+	if(email.equals(dto.getEmail()) && pwd.equals(dto.getPassword())) {
+		session.setAttribute("email", dto.getEmail());
+		session.setAttribute("password", dto.getPassword());
+		session.setAttribute("name", dto.getName());
+		session.setAttribute("phone", dto.getPhone());
+		response.sendRedirect("index.jsp");
+	} else { %>
+	 <script>
+		  if(confirm("아이디 / 비밀번호가 일치하지 않습니다.")) location.href="login.jsp";
+		  else history.back();
+	 </script>
+<% } %>
 </body>
 </html>
