@@ -32,13 +32,12 @@ public class BoardDao {
 	
 	//게시판 수정하기
 	public void boardUpdate(BoardDto dto) {
-		String sql = "Update BOARD SET TITLE = ?, CONTENT = ? WHERE TITLE = ?";
+		String sql = "Update BOARD SET CONTENT = ? WHERE TITLE = ?";
 		
 		try(Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setString(1, dto.getUpdate_Title());
-			pstmt.setString(2, dto.getUpdate_Content());
-			pstmt.setString(3, dto.getTitle());
+			pstmt.setString(1, dto.getUpdate_Content());
+			pstmt.setString(2, dto.getUpdate_Title());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
