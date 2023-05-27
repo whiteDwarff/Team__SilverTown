@@ -60,7 +60,11 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 					String date = rs.getString("created_date");
 				%>
 				<tr>
+<<<<<<< HEAD
 					<td><a href="board_content.jsp?title=<%=title%>"><%=title%></a></td>
+=======
+					<td><a href="board_content.jsp?title=<%=id%>"><%=id%></a></td>
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 					<td><%=name%></td>
 					<td><%=date%></td>
 				</tr>

@@ -18,6 +18,7 @@ public class LoginDto {
 	 * @param pwd
 	 */
 //	public LoginDto() {};
+<<<<<<< HEAD
 	
 	public LoginDto(String id, String name, String pwd) {
 		super();
@@ -54,6 +55,87 @@ public class LoginDto {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+=======
+	private String id;
+	private String name;
+	private String email;
+	private String password;
+	private String phone_number;
+	private String created_at;
+	/**
+	 * @return the id
+	 */
+	
+	
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	/**
+	 * @return the phone_number
+	 */
+	public String getPhone_number() {
+		return phone_number;
+	}
+	/**
+	 * @param phone_number the phone_number to set
+	 */
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
+	}
+	/**
+	 * @return the created_at
+	 */
+	public String getCreated_at() {
+		return created_at;
+	}
+	/**
+	 * @param created_at the created_at to set
+	 */
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 	}
 	
 	

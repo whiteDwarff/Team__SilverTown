@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 <%@page import="Myeong.Hun.VideoListDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Myeong.Hun.VideoListDao"%>
+=======
+<%@page import="java.util.ArrayList"%>
+<%@page import="Myeong.Hun.VideoListDao"%>
+<%@page import="Myeong.Hun.VideoListDto"%>
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*" %>
 <%@page import="javax.sql.DataSource"%>
@@ -71,6 +77,7 @@
          <img src="./img/scroll-rt.png" class="scroll-img right">
         <div class="card-wrap">
         <div class="url-card background-none"></div>
+<<<<<<< HEAD
          <%
 			request.setCharacterEncoding("utf-8");
 
@@ -78,6 +85,15 @@
 			String categoryId = "1";
 			ArrayList<VideoListDto> videoList = vldao.list(categoryId);
 			for (VideoListDto vldto : videoList) {
+=======
+				<%
+				request.setCharacterEncoding("utf-8");
+
+				VideoListDao vldao = new VideoListDao();
+				String categoryId = "1";
+				ArrayList<VideoListDto> videoList = vldao.list(categoryId);
+				for (VideoListDto vldto : videoList) {
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 				%>
   <div class="url-card">
     <a href="education-page.jsp?title=<%=vldto.getTitle()%>&content=<%=vldto.getDescription()%>&url=<%=vldto.getUrl()%>&lang=<%=vldto.getCategory_id()%>">
@@ -90,9 +106,16 @@
       <embed controls=0 src="https://img.youtube.com/vi/<%= vldto.getUrl() %>/maxresdefault.jpg" allowfullscreen></embed>
     </a>
   </div>
+<<<<<<< HEAD
 		  <%
 					}
 		  %>
+=======
+ <%
+						}
+%>
+ 
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
         </div>
       </div>
     </article>
@@ -106,6 +129,11 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
+<<<<<<< HEAD
+=======
+			request.setCharacterEncoding("utf-8");
+
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 			VideoListDao vldao2 = new VideoListDao();
 			String categoryId2 = "2";
 			ArrayList<VideoListDto> videoList2 = vldao.list(categoryId2);
@@ -139,6 +167,11 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
+<<<<<<< HEAD
+=======
+			request.setCharacterEncoding("utf-8");
+
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 			VideoListDao vldao3 = new VideoListDao();
 			String categoryId3 = "3";
 			ArrayList<VideoListDto> videoList3 = vldao.list(categoryId3);
@@ -169,6 +202,11 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
+<<<<<<< HEAD
+=======
+			request.setCharacterEncoding("utf-8");
+
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 			VideoListDao vldao4 = new VideoListDao();
 			String categoryId4 = "4";
 			ArrayList<VideoListDto> videoList4 = vldao.list(categoryId4);
@@ -199,6 +237,11 @@
         <div class="card-wrap">
         <div class="url-card background-none"></div>
          <%
+<<<<<<< HEAD
+=======
+			request.setCharacterEncoding("utf-8");
+
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 			VideoListDao vldao5 = new VideoListDao();
 			String categoryId5 = "5";
 			ArrayList<VideoListDto> videoList5 = vldao.list(categoryId5);

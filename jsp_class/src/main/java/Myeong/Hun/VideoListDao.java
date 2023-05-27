@@ -22,6 +22,7 @@ public class VideoListDao {
 	
 	private Connection getConnection() throws Exception{
 		InitialContext initCtx = new InitialContext();
+<<<<<<< HEAD
 		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/project01_db");
 		
 		Connection con = ds.getConnection();
@@ -87,5 +88,43 @@ public class VideoListDao {
 	}
 	
 
+=======
+		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/silvertown");
+		
+		Connection con = ds.getConnection();
+		
+		return con;
+	}
+	
+	public ArrayList<VideoListDto> list(String categoryId){
+		String sql = "select * from video where category_id = ?";
+		ArrayList<VideoListDto> vldtos = new ArrayList<VideoListDto>();
+	
+	
+	try(Connection con = getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);)
+	{
+		pstmt.setString(1, categoryId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			VideoListDto vldto = new VideoListDto();
+			vldto.setCategory_id(rs.getString("category_id"));
+			vldto.setDescription(rs.getString("description"));
+			vldto.setId(rs.getString("id"));
+			vldto.setTitle(rs.getString("title"));
+			vldto.setUploaded_at(rs.getString("uploaded_at"));
+			vldto.setUploader_id(rs.getString("uploader_id"));
+			vldto.setUrl(rs.getString("url"));
+			
+			vldtos.add(vldto);
+		}
+	}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vldtos;
+	}
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 
 }

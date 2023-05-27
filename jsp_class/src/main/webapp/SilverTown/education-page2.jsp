@@ -8,6 +8,7 @@
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%
+<<<<<<< HEAD
 request.setCharacterEncoding("utf-8");
 String title = request.getParameter("title");
 String content = request.getParameter("content");
@@ -27,6 +28,27 @@ try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareS
 	pstmt.setString(1, lang);
 
 	ResultSet rs = pstmt.executeQuery();
+=======
+	request.setCharacterEncoding("utf-8");
+	String title = request.getParameter("title");
+	String content = request.getParameter("content");
+	String urlLink = request.getParameter("url");
+	String lang = request.getParameter("lang");
+	
+	Class.forName("org.mariadb.jdbc.Driver");
+	
+	String url = "jdbc:mariadb://localhost:3307/project01_db";
+	String user = "hunmyeong";
+	String password = "8524";
+	
+	try(Connection con = DriverManager.getConnection(url, user, password)) {
+		String sql = "select * from video where category_id = ?";
+		
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, lang);
+		
+		ResultSet rs = pstmt.executeQuery();
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 %>
 
 <html>
