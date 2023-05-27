@@ -15,14 +15,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         
+        
 <%
 	request.setCharacterEncoding("utf-8");
-	String name = request.getParameter("comment_name");
+	String name = (String) session.getAttribute("name");
 	String content = request.getParameter("comment_content");
 	String boardId = request.getParameter("board_Id");
 	
+	if (name == null || name.length() < 1) {
+		%>
+		<script>
+			alert("로그인을 먼저 해주세요.");
+			location.href = 'login.jsp';
+		</script>
+	<%}
+	else {%>
 	
 
+	
+	
+<%
 	  InitialContext initCtx = new InitialContext();
 	  Context ctx = (Context)initCtx.lookup("java:comp/env");
 	  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
@@ -47,5 +59,5 @@
 			<%
 		}
 	}
-	
+	}
 %>

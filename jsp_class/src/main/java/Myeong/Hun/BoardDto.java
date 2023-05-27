@@ -32,6 +32,9 @@ public class BoardDto {
 	
 	private String name;
 	
+	private String author_name;
+	private String created_date;
+	
 	private List<BoardDto> commentList;
 	
 	
@@ -184,6 +187,30 @@ public class BoardDto {
 	 */
 	public void setUpdate_Content(String update_Content) {
 		this.update_Content = update_Content;
+	}
+	/**
+	 * @return the author_name
+	 */
+	public String getAuthor_name() {
+		return author_name;
+	}
+	/**
+	 * @param author_name the author_name to set
+	 */
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
+	/**
+	 * @return the created_date
+	 */
+	public String getCreated_date() {
+		return created_date;
+	}
+	/**
+	 * @param created_date the created_date to set
+	 */
+	public void setCreated_date(String created_date) {
+		this.created_date = created_date;
 	}
 	
 	

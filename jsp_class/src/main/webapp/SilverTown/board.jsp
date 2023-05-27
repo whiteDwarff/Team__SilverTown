@@ -1,4 +1,7 @@
 
+<%@page import="Myeong.Hun.BoardDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Myeong.Hun.BoardDao"%>
 <%
 /*====================================
 작성자 : 2023. 5. 12.
@@ -11,26 +14,8 @@
 <%@page import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>   
+<%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
-<%
-request.setCharacterEncoding("utf-8");
-
-InitialContext initCtx = new InitialContext();
-
-Context ctx = (Context) initCtx.lookup("java:comp/env");
-
-DataSource ds = (DataSource) ctx.lookup("jdbc/project01_db");
-
-//2. 연결 객체 생성
-try (Connection con = ds.getConnection(); Statement st = con.createStatement();) {
-
-	//3. 생성된 연결을 통해 SQL문 실행 의뢰 준비
-	String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name FROM board INNER JOIN member ON board.author_id = member.id;";
-
-	//4. SQL 실행
-	ResultSet rs = st.executeQuery(sql);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -53,30 +38,28 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 					<th class="post-date">작성일</th>
 				</tr>
 				<%
-				//5. 결과집합 처리 
-				while (rs.next()) {
-					String title = rs.getString("title");
-					String name = rs.getString("author_name");
-					String date = rs.getString("created_date");
+				request.setCharacterEncoding("utf-8");
+
+				BoardDao dao = new BoardDao();
+				ArrayList<BoardDto> dtos = dao.boardList();
+				for (BoardDto dto : dtos) {
 				%>
 				<tr>
-					<td><a href="board_content.jsp?title=<%=title%>"><%=title%></a></td>
-					<td><%=name%></td>
-					<td><%=date%></td>
+					<td><a href="board_content.jsp?title=<%=dto.getTitle()%>"><%=dto.getTitle()%></a></td>
+					<td><%=dto.getAuthor_name()%></td>
+					<td><%=dto.getCreated_date()%></td>
 				</tr>
 				<%
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 				%>
+
 			</table>
 			<%
-				if(session.getAttribute("email") != null) {
-					out.println("<a id='qna-button' href='write.jsp'>문의하기</a>");
-				} else {
-					out.println("<a id='qna-button' href='login.jsp'>문의하기</a>");
-				}
+			if (session.getAttribute("email") != null) {
+				out.println("<a id='qna-button' href='write.jsp'>문의하기</a>");
+			} else {
+				out.println("<a id='qna-button' href='login.jsp'>문의하기</a>");
+			}
 			%>
 		</div>
 	</section>
@@ -86,7 +69,7 @@ try (Connection con = ds.getConnection(); Statement st = con.createStatement();)
 	<script>
 		const li = document.querySelectorAll('nav a');
 		const liLast = document.querySelector('nav a:last-child');
-		for(let i=0; i<li.length; i++) {
+		for (let i = 0; i < li.length; i++) {
 			li[i].style.filter = 'blur(1px)';
 		}
 		liLast.style.filter = 'blur(0)';

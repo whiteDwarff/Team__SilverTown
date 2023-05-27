@@ -29,6 +29,7 @@ public class VideoListDao {
 		return con;
 	}
 	
+	//index페이지 카테고리별 영상 뽑아오는 메소드
 	public ArrayList<VideoListDto> list(String categoryId){
 		String sql = "select * from video where category_id = ?";
 		ArrayList<VideoListDto> dto = new ArrayList<VideoListDto>();
@@ -59,6 +60,7 @@ public class VideoListDao {
 		return dto;
 	}
 	
+	//동영상 페이지 내용 뽑아오는 메소드
 	public VideoListDto getVideoByTitle(String title){
 		String sql = "select * from video where title = ?";
 		VideoListDto dto = new VideoListDto();

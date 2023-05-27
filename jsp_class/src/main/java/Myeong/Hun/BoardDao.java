@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
+
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -138,6 +140,32 @@ public class BoardDao {
 	    }
 
 	    return commentList;
+	}
+	
+	//모든 게시글을 가져오기
+	public ArrayList<BoardDto> boardList(){
+		String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name FROM board INNER JOIN member ON board.author_id = member.id ORDER BY 1 Desc;";
+		ArrayList<BoardDto> dtos = new ArrayList<BoardDto>();
+	
+	
+	try(Connection con = getConnection();
+		Statement stmt = con.createStatement();)
+	
+	{ ResultSet rs = stmt.executeQuery(sql);
+		
+		
+		while (rs.next()) {
+			BoardDto dto = new BoardDto();
+			dto.setTitle(rs.getString("title"));
+			dto.setAuthor_name(rs.getString("author_name"));
+			dto.setCreated_date(rs.getString("created_date"));
+			dtos.add(dto);
+		}
+	}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dtos;
 	}
 
 }
