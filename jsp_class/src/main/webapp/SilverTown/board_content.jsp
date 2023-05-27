@@ -60,22 +60,14 @@
 			   <span class="name"><%= name %></span>
 			   <div class="hidden-form-wrap">
 			   	   <p class="content"><%=content %></p>
-			   	   <form class="hidden" id="main-hidden-form">
-				 	<input class="update-input">
+			   	   <form class="hidden" id="main-hidden-form" action="boardUpdate.jsp" method="post">
+				 	<input class="update-input" name="content">
+				 	<input style="display:none" name="title" value="<%= title %>">
 				 	<button >제출</button>
 	        	   </form>
 			   </div>
 			</div>
 		    <div class="button-wrap"></div>
-		  <% if((String) session.getAttribute("name")!= null && session.getAttribute("name").equals(name)) { %>
-		    	<script>
-			    	const btnWrap = document.getElementsByClassName('button-wrap')[0];
-			    	let template = 
-			    		"<span id='main-update-button'>수정</span>" +
-			    		"<a onclick='confirmDelete()'>삭제</a>";
-			    	btnWrap.insertAdjacentHTML('beforeend', template);
-		    	</script>
-		  <% } %>
 	   </div>   <!-- qna-wrap -->
 	</section><!-- main-content -->
 	
@@ -149,10 +141,19 @@
 	</section>
 	<%@include file="./footer.jsp"%>
 	<script src="./script/header.js"></script>
-	<script src="./script/border-content.js?after" type="module"></script>
 	<script>
 	   const count = document.getElementById('count');
 	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count %>개)";
-	</script>
+	   
+	   <% if((String) session.getAttribute("name")!= null && session.getAttribute("name").equals(name)) { %>
+	    	const btnWrap = document.getElementsByClassName('button-wrap')[0];
+	    	let template = 
+	    		"<span id='main-update-button'>수정</span>" +
+	    		"<a onclick='confirmDelete()'>삭제</a>";
+	    	btnWrap.insertAdjacentHTML('beforeend', template);
+   	</script>
+   <% } %>
+   <script src="./script/border-content.js"></script>
+	   
 </body>
 </html>

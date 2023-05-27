@@ -1,68 +1,67 @@
+<%@page import="Myeong.Hun.VideoListDao"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="Myeong.Hun.VideoListDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.sql.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%
-   request.setCharacterEncoding("utf-8");
-   String title = request.getParameter("title");
-   String content = request.getParameter("content");
-   String urlLink = request.getParameter("url");
-   String lang = request.getParameter("lang");
-   
-   Class.forName("org.mariadb.jdbc.Driver");
-   InitialContext initCtx = new InitialContext();
+request.setCharacterEncoding("utf-8");
+String title = request.getParameter("title");
+String content = request.getParameter("content");
+String urlLink = request.getParameter("url");
+String lang = request.getParameter("lang");
 
-   Context ctx = (Context)initCtx.lookup("java:comp/env");
+Class.forName("org.mariadb.jdbc.Driver");
+InitialContext initCtx = new InitialContext();
 
-   DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
-      String sql = "select * from video where category_id = ?";
-   
-   try(Connection con = ds.getConnection(); 
-			PreparedStatement pstmt = con.prepareStatement(sql);) {
-      
-      pstmt.setString(1, lang);
-      
-      ResultSet rs = pstmt.executeQuery();
+Context ctx = (Context) initCtx.lookup("java:comp/env");
+
+DataSource ds = (DataSource) ctx.lookup("jdbc/project01_db");
+String sql = "select * from video where category_id = ?";
+
+try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+	pstmt.setString(1, lang);
+
+	ResultSet rs = pstmt.executeQuery();
 %>
 
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CodeGrow</title>
+<title>CodeGrowe</title>
+<!-- 파비콘 등록 -->
 <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-<link rel="stylesheet" href="./style/education.css?after">
+<!-- main style file -->
+<link rel="stylesheet" href="./style/education-page2.css?after">
+<!-- codeEditor에서 사용되는 style file -->
 <link rel="stylesheet" href="./codemirror-5.65.13/lib/codemirror.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/3024-day.css">
-<link rel="stylesheet"
-	href="./codemirror-5.65.13/theme/base16-light.css">
-<link rel="stylesheet"
-	href="./codemirror-5.65.13/theme/duotone-dark.css">
-<link rel="stylesheet"
-	href="./codemirror-5.65.13/theme/duotone-light.css">
+<link rel="stylesheet" href="./codemirror-5.65.13/theme/base16-light.css">
+<link rel="stylesheet" href="./codemirror-5.65.13/theme/duotone-dark.css">
+<link rel="stylesheet" href="./codemirror-5.65.13/theme/duotone-light.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/eclipse.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/hopscotch.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/juejin.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/lucario.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/material.css">
-<link rel="stylesheet"
-	href="./codemirror-5.65.13/theme/material-palenight.css">
+<link rel="stylesheet" href="./codemirror-5.65.13/theme/material-palenight.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/mdn-like.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/neat.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/neo.css">
-<link rel="stylesheet"
-	href="./codemirror-5.65.13/theme/oceanic-next.css">
-<link rel="stylesheet"
-	href="./codemirror-5.65.13/theme/paraiso-light.css">
+<link rel="stylesheet" href="./codemirror-5.65.13/theme/oceanic-next.css">
+<link rel="stylesheet" href="./codemirror-5.65.13/theme/paraiso-light.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/railscasts.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/shadowfox.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/solarized.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/xq-light.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/yeti.css">
 <link rel="stylesheet" href="./codemirror-5.65.13/theme/zenburn.css">
+<!-- fontawessome icon import -->
+<script src="https://kit.fontawesome.com/08a7424104.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -72,78 +71,46 @@
 		<div class="wrap">
 			<div class="flex-box">
 				<embed id="main-url"
-					src="https://www.youtube.com/embed/<%= urlLink %>?showinfo=0&modestbranding=1&rel=0"
+					src="https://www.youtube.com/embed/<%=urlLink%>?showinfo=0&modestbranding=1&rel=0"
 					title="YouTube video player" frameborder="0"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					allowfullscreen></embed>
 				<div class="list-box">
-					<h2 class="url-title"><%= title %></h2>
-					<h4 class="url-content"><%= content %></h4>
-
-
-
-					<!------------------------------------------------------------찜 버튼  ------------------------------------------->
-					<button id="addToFavoritesBtn">관심목록 추가</button>
-
-					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-					<script>
-					  $(document).ready(function() {
-					    $('#addToFavoritesBtn').click(function() {
-					    	var title = '<%= title %>';
-					      $.ajax({
-					        url: 'wishList_ok.jsp', // 스크립틀릿이 포함된 JSP 파일 경로
-					        data: { title: title },
-					        type: 'POST',
-					        success: function(response) {
-					          // 서버에서 반환한 응답을 처리하는 로직을 구현해주세요.
-					          // 예: 알림창 띄우기, 화면 갱신 등
-					          alert('강의가 찜 되었습니다!');
-					        },
-					        error: function(xhr, status, error) {
-					          // 에러 발생 시 처리할 로직을 구현해주세요.
-					        }
-					      });
-					    });
-					  });
-					</script>
-					<%=session.getAttribute("videoList") %>
-
-					<!------------------------------------------------------------찜 버튼  ------------------------------------------->
-
-
-
-
-
+					<h2 class="url-title"><%=title%></h2>
+					<h4 class="url-content"><%=content%></h4>
+					<!-- 관심목록 버튼 -->
+					<button id="addToFavoritesBtn">관심목록 추가 <i class="fa-solid fa-plus add"></i></button>
+					<!-- 조회수, 관심목록 버튼은 display: flex 해야함  -->
+					<!--  <span>조회수 : </span>  -->
 					<ul class="list">
 						<div class="scroll-box">
 							<%
-                    while(rs.next()){
-                  %>
+							while (rs.next()) {
+							%>
 							<!-- list -->
 							<li><a
-								href="education-page2.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= rs.getString("category_id") %>">
+								href="education-page2.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%=rs.getString("category_id")%>">
 									<embed controls=0
-										src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg"
+										src="https://img.youtube.com/vi/<%=rs.getString("url")%>/maxresdefault.jpg"
 										allowfullscreen class="sub-url"></embed>
 									<div>
-										<span class="sub-url-title"><%= rs.getString("title")%></span>
-										<span class="sub-url-content"><%= rs.getString("description")%></span>
+										<span class="sub-url-title"><%=rs.getString("title")%></span>
+										<span class="sub-url-content"><%=rs.getString("description")%></span>
 									</div>
 							</a></li>
 							<!-- end  -->
-							<% 
-                      	} 
-                      } catch(Exception e) {
-                        e.printStackTrace();
-                    }
-                  	%>
+							<%
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							%>
 						</div>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</section>
-
 
 	<!-- code editor -->
 	<section id="code-editor">
@@ -175,7 +142,7 @@
 						<option>zenburn</option>
 					</select>
 				</p>
-			</div>
+			</div> <!-- flex-box -->
 			<div style="display: flex;">
 				<div class=CodeMirror style="flex: 1;" id="aa">
 					<textarea id="code" name="code">
@@ -183,21 +150,21 @@
 			  <!-- this is a comment -->
 			<head>
 			 <title>Mixed HTML Example</title>
-			 <style>
-h1 {
-	font-family: comic sans;
-	color: #f0f;
-}
-
-div {
-	background: yellow !important;
-}
-
-body {
-	max-width: 50em;
-	margin: 1em 2em 1em 5em;
-}
-</style>
+			 <style scoped>
+				h1 {
+					font-family: comic sans;
+					color: #f0f;
+				}
+				
+				div {
+					background: yellow !important;
+				}
+				
+				body {
+					max-width: 50em;
+					margin: 1em 2em 1em 5em;
+				}
+				</style>
 			  </head>
 			  <body>
 			    <h1>Mixed HTML Example</h1>
@@ -219,36 +186,81 @@ body {
 			<button id="run-button" onclick="runCode()">Run</button>
 		</article>
 	</section>
-
-	<script>
-		const option = document.getElementsByTagName('option');
-		
-	    setTimeout(() => {
-			for(let item of option) {
-				if(item.value == 1) item.selected = true;
-			}
-		}, 0); 
+	<!-- footer file -->
+	<%@include file="./footer.jsp"%>
 	
-	
-       	function runCode() {
-          var code = editor.getValue();
-          var output = document.getElementById("output").contentWindow.document;
-          output.open();
-          output.write(code);
-          output.close();
-          }
-    </script>
+	<!-- jquery import -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- main script file -->
+	<script src="./script/education-page.js"></script>
+	<!-- codeEditor -->
 	<script src="./codemirror-5.65.13/lib/codemirror.js"></script>
 	<script src="./codemirror-5.65.13/mode/javascript/javascript.js"></script>
 	<script src="./codemirror-5.65.13/mode/css/css.js"></script>
 	<script src="./codemirror-5.65.13/mode/htmlmixed/htmlmixed.js"></script>
 	<script src="./codemirror-5.65.13/mode/javascript/javascript.js"></script>
-
-
-
-	<%@include file="./footer.jsp"%>
 	<script src="./script/theme.js"></script>
-	<script src="./script/education-page.js"></script>
-	<script src="./script/header.js"></script>
+
+	<script>
+		// --------------------- ajax handler -------------------===
+	    $('#addToFavoritesBtn').click(function() {
+	    	let el =  $('#addToFavoritesBtn').text()
+	    	// 이미 동영상을 등록한 경우 (중복 등록 방지)
+	    	if(el.includes("찜한강의")) {
+	    		// button의 a 태그 href 속성 변경 
+    			$('#link').attr('href', 'deleteSessionUrl.jsp?title=<%=title%>');
+	    		if(confirm('관심목록에서 삭제하시겠습니까?')) {
+	    			// 해당 동영상을 삭제하는 로직을 작성된 페이지로 이동 **
+	    			console.log(1)
+	    		} else {
+	    			// button의 a 태그 href 속성 변경 
+	    			$('#link').attr('href', '#');
+	    		}
+	    	// 동영상이 저장되지 않았을 경우 
+	    	} else {
+	    	 	var title = '<%=title%>';
+				$.ajax({
+					url : 'wishList_ok.jsp', // 스크립틀릿이 포함된 JSP 파일 경로
+					data : {
+						title : title
+					},
+					type : 'POST',
+					success : function() {
+						alert('강의가 등록 되었습니다.');
+						  $('#addToFavoritesBtn').html( "<a id='link' href='#'>"+"찜한강의 " + "<i class='fa-solid fa-minus minus add'></i></a>");
+					},
+					error : function(xhr, status, error) {
+						alert('error');
+					}
+				})
+	    	} 
+    	})
+		// ---------------------codeEditor handler -----------------------
+		function runCode() {
+			var code = editor.getValue();
+			var output = document.getElementById("output").contentWindow.document;
+			output.open();
+			output.write(code);
+			output.close();
+		}
+	 	// --------------------- cartList handler -----------------------
+	    const addBtn = document.getElementById('addToFavoritesBtn');
+	    const urlTitle = document.getElementsByClassName('url-title')[0];
+	 	
+	    <%
+			if( session.getAttribute("videoList") != null ) {
+				VideoListDao vldao = new VideoListDao();
+				ArrayList<String> list = (ArrayList) session.getAttribute("videoList");
+				for (String item : list) {
+					VideoListDto dto = vldao.getVideoByTitle(item);
+		%>
+		// dto의 title과 html문서 내 title이 일치한 경우 버튼의 innerHTML 변경
+		if("<%=dto.getTitle()%>" == urlTitle.innerText) {
+			addBtn.innerHTML = "<a id='link' href='#'>"+"찜한강의 " + "<i class='fa-solid fa-minus minus add'></i></a>" 
+		}
+	    <% } } %>
+	   
+	</script>
+	<script src="./script/header1.js"></script>
 </body>
 </html>
