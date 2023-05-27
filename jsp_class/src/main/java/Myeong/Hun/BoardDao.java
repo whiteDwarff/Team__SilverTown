@@ -114,19 +114,18 @@ public class BoardDao {
 	}
 	
 	//게시판 게시글의 댓글내용, 작성시간, 작성자를 가져옴
-	public BoardDto comment(String boardId) {
-		String sql = "SELECT C.CONTENT, C.CREATED_AT, M.NAME"
-				+ "FROM COMMENT C"
-				+ "JOIN MEMBER M ON C.AUTHOR_ID = M.ID"
-				+ "WHERE C.POST_ID = ?";
-		BoardDto dto = new BoardDto();
+	public List<BoardDto> comment(String boardId) {
+	    String sql = "SELECT C.CONTENT, C.CREATED_AT, M.NAME "
+	            + "FROM COMMENT C "
+	            + "JOIN MEMBER M ON C.AUTHOR_ID = M.ID "
+	            + "WHERE C.POST_ID = ?";
+	    List<BoardDto> commentList = new ArrayList<>();
 
 	    try (Connection con = getConnection();
 	         PreparedStatement pstmt = con.prepareStatement(sql)) {
 	        pstmt.setString(1, boardId);
 	        ResultSet rs = pstmt.executeQuery();
 
-	        List<BoardDto> commentList = new ArrayList<>();
 	        while (rs.next()) {
 	            BoardDto commentDto = new BoardDto();
 	            commentDto.setContent(rs.getString("CONTENT"));
@@ -134,19 +133,12 @@ public class BoardDao {
 	            commentDto.setName(rs.getString("NAME"));
 	            commentList.add(commentDto);
 	        }
-	        
-	        dto.setCommentList(commentList);
-	        
 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-
-
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-		return dto;
-		    
-		   
+	    return commentList;
 	}
 
 }
