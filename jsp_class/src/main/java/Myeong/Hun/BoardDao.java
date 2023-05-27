@@ -144,7 +144,8 @@ public class BoardDao {
 	
 	//모든 게시글을 가져오기
 	public ArrayList<BoardDto> boardList(){
-		String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name FROM board INNER JOIN member ON board.author_id = member.id ORDER BY 1 Desc;";
+		String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name "
+				+ "FROM board INNER JOIN member ON board.author_id = member.id ORDER BY 1 Desc;";
 		ArrayList<BoardDto> dtos = new ArrayList<BoardDto>();
 	
 	

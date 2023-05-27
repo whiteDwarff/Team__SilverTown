@@ -11,7 +11,7 @@
 <body>
 
  <main class="center">
-        <img src="./img/dev.jpg" alt="">
+        <a href="index.jsp"><img src="./img/dev.jpg" alt=""></a>
         <article class="login" id="login">
             <div class="content-wrap">
                 <h2>Sign In</h2>

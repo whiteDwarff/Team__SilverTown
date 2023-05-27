@@ -38,9 +38,7 @@
             display: flex;
         }
         main img{
-            width: 40%;
             height: 425px;
-            margin-right: -20px;
         }
         #login {
             width: 40%;
@@ -72,4 +70,8 @@
             font-weight: 600;
             color: #73d09a;
             cursor: pointer;
+        }
+        
+        a {
+        	display: inline;
         }
