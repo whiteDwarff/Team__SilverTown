@@ -57,16 +57,18 @@
             <img src="./img/login.jpg" alt="">
           </div>
           <div class="label-box">
-            <a href="wishList.jsp">관심 목록</a>
-            <a href="update.jsp">계정</a>
-            <!-- session이 있다면 하단 태그는 로그아웃 버튼으로 변경 -->
-          <%    
-        	if(session.getAttribute("email") == null) {
-        		out.println("<a href='login.jsp'>로그인</a>");
-        	} else {
+          <!-- session이 href 속성 변경 -->
+          <%
+	          if(session.getAttribute("email") == null) {
+	        	  out.println("<a href='login.jsp'>관심 목록</a>");
+	        	  out.println("<a href='login.jsp'>계정</a>");
+	        	  out.println("<a href='login.jsp'>로그인</a>");
+	          } else {
+	        	  out.println("<a href='wishList.jsp'>관심 목록</a>");
+	        	  out.println("<a href='insert.jsp'>계정</a>");
+	        	  out.println("<a href='logout.jsp'>로그아웃</a>");
+	          }
           %>
-        		<a href='logout.jsp'>로그아웃</a>
-          <% } %>
           </div>
         </div>
       </div>
