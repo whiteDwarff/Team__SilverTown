@@ -65,7 +65,7 @@
 	        	  out.println("<a href='login.jsp'>로그인</a>");
 	          } else {
 	        	  out.println("<a href='wishList.jsp'>관심 목록</a>");
-	        	  out.println("<a href='insert.jsp'>계정</a>");
+	        	  out.println("<a href='update.jsp'>계정</a>");
 	        	  out.println("<a href='logout.jsp'>로그아웃</a>");
 	          }
           %>
