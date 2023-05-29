@@ -15,17 +15,17 @@
  String email = request.getParameter("email");
  String name = request.getParameter("name");
  String tel = request.getParameter("tel");
- String password = request.getParameter("password");
+ String newPwd = request.getParameter("newPwd");
  
  MemberDao dao = new MemberDao();
- MemberDto dto = new MemberDto(name, email, password, tel);
+ MemberDto dto = new MemberDto(name, email, newPwd, tel);
  
  dao.memberFunction(dto, "U");
  
- 
+ session.invalidate();
 
  %>
 <script type="text/javascript">
-alert("수정완료!");
-location.href="index.jsp";
+alert("수정이 완료되었습니다. 다시 로그인해주세요!");
+location.href="login.jsp";
 </script> 
