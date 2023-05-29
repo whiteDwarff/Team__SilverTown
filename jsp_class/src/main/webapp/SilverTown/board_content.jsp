@@ -60,11 +60,6 @@
 			   <span class="name"><%= name %></span>
 			   <div class="hidden-form-wrap">
 			   	   <p class="content"><%=content %></p>
-			   	   <form class="hidden" id="main-hidden-form" action="boardUpdate.jsp" method="post">
-				 	<input class="update-input" name="content">
-				 	<input style="display:none" name="title" value="<%= title %>">
-				 	<button >제출</button>
-	        	   </form>
 			   </div>
 			</div>
 		    <div class="button-wrap"></div>
@@ -105,22 +100,15 @@
 	</div> <!-- info -wrap -->
 	<div class="flex-box">
 		<span class="name"><%=commentName %></span>
-		<span class="content"><%=commentCONTENT %></span>
+		<div class="hidden-form-wrap">
+			<span class="content"><%=commentCONTENT %></span>
+		</div>
 	</div> <!-- flex-box -->
 	<div class="button-wrap"></div>
    </div> <!-- qna-wrap -->
-	
-	<% if(session.getAttribute("name").equals(commentName)) { %>
-	<script>
-	/* onclick="confirmCommentDelete"  */
-		const btnWrap2nd = document.getElementsByClassName('button-wrap')[1];
-	    let template = 
-			"<a id='update-button'>수정</a>" +
-			"<a href='#'>삭제</a>"
-			btnWrap2nd.insertAdjacentHTML('beforeend', template);
-	</script>
+	<!-- 댓글 -->
+
 	<% 
-		}
       }      
   	} catch (Exception e) {
      	e.printStackTrace();       
@@ -139,21 +127,77 @@
 	</form>
 	  </div>
 	</section>
+	
 	<%@include file="./footer.jsp"%>
+	
 	<script src="./script/header.js"></script>
 	<script>
-	   const count = document.getElementById('count');
-	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count %>개)";
+	   const count = document.getElementById('count'),
+	         authorName = document.getElementsByClassName('name'),
+	         hiddenForm = document.getElementsByClassName('hidden-form-wrap');
+	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count %>개)"; 
 	   
-	   <% if((String) session.getAttribute("name")!= null && session.getAttribute("name").equals(name)) { %>
-	    	const btnWrap = document.getElementsByClassName('button-wrap')[0];
-	    	let template = 
-	    		"<span id='main-update-button'>수정</span>" +
-	    		"<a onclick='confirmDelete()'>삭제</a>";
-	    	btnWrap.insertAdjacentHTML('beforeend', template);
+	  
+	  // 게시글 작성자가 session에 저장된 'name'과 같으면 수정 및 삭제, form을 생성 
+	  for(let i=0; i<authorName.length; i++) {
+		  if(authorName[i].innerText == "<%= session.getAttribute("name") %>") {
+			  
+			  // 기존 댓글의 내용 
+			  let orgContent = document.getElementsByClassName('content');
+			  
+			  let template = 
+		    		"<span class='update-button'>수정</span>" +
+		    		"<a href='#'>삭제</a>";
+		      document.getElementsByClassName('button-wrap')[i].insertAdjacentHTML('beforeend', template);
+		      template = 
+		    		  "<form class='hidden hidden-form' action='commentsUpdate.jsp' method='post'>"
+		    		// 변경될 댓글내용 
+			 		+ "<input class='update-input' name='content'>"
+			 		// 기존 댓글의 내용을 value로 전송
+			 	    + "<input style='display:none' name='title' value='" + orgContent[i].innerText + "'>"
+			 	    + "<button>제출</button></form>"
+			 document.getElementsByClassName('hidden-form-wrap')[i].insertAdjacentHTML('beforeend', template);
+			 console.log(orgContent[i].innerText)
+		  }
+	  }			
+	  
+	  const updateBtn = document.getElementsByClassName('update-button');
+	  const deleteBtn = document.querySelectorAll('.button-wrap a');
+	  
+	  // form의 display 속성을 변경시키는 event handler
+	  for(let i=0; i<updateBtn.length; i++) {
+	  	updateBtn[i].addEventListener('click', e => {
+	  		let contentsForm = document.getElementsByClassName('hidden-form');
+	  		contentsForm[i].classList.toggle('block');
+	  		// form의 class에 block이 있다면 eventTarget의 innerText 변경 
+	  		if(contentsForm[i].classList.contains('block')) {
+	  			e.target.innerText = '닫기';
+	  		} else {
+	  			e.target.innerText = '수정';
+	  		}
+	  	})
+	  	// 댓글을 삭제하는 event handler
+	  	if(i) {
+	  		console.log(deleteButton[i])
+	  		deleteBtn[i].addEventListener('click', e => {
+	  			if(confirm('댓글을 삭제하시겠습니까?')) {
+	  				e.target.href='commentsDelete.jsp';
+	  			}
+	  		})
+	  	// 게시글을 삭제하는 event handler
+	  	} else {
+	  		deleteBtn[0].addEventListener('click', e => {
+	  			if(confirm('게시글을 삭제하시겠습니까?')) {
+	  				e.target.href='boardDelete.jsp?boardId=<%= boardId %>';
+	  			}
+	  		})
+	  		// 게시글 from의 action 속성 변경 
+	  		document.getElementsByClassName('hidden-form')[0].action = 'boardUpdate.jsp';
+	  	    document.querySelector('#main-content > div > div.flex-box > div > form > input:nth-child(2)')
+	  	    .value = '<%= title %>'
+	  	}
+	  }
    	</script>
-   <% } %>
-   <script src="./script/border-content.js"></script>
-	   
+   
 </body>
 </html>
