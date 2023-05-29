@@ -16,6 +16,7 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
         
         
 <%
@@ -41,6 +42,20 @@
 	  InitialContext initCtx = new InitialContext();
 	  Context ctx = (Context)initCtx.lookup("java:comp/env");
 	  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
+=======
+    
+<%
+	request.setCharacterEncoding("utf-8");
+	String name = request.getParameter("comment_name");
+	String content = request.getParameter("comment_content");
+	String boardId = request.getParameter("board_Id");
+	
+	
+	
+	  InitialContext initCtx = new InitialContext();
+	  Context ctx = (Context)initCtx.lookup("java:comp/env");
+	  DataSource ds= (DataSource)ctx.lookup("jdbc/project");
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 	
 	String sql = "INSERT INTO COMMENT (author_id, post_id, content) VALUES ((SELECT ID FROM MEMBER WHERE NAME = ?), ?, ?)";
 	

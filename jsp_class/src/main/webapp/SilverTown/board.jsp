@@ -51,9 +51,19 @@
 				%>
 				
 				<tr>
+<<<<<<< HEAD
 					<td><a href="board_content.jsp?title=<%=dto.getTitle()%>"><%=dto.getTitle()%></a></td>
 					<td><%=dto.getAuthor_name()%></td>
 					<td><%=dto.getCreated_date()%></td>
+=======
+<<<<<<< HEAD
+					<td><a href="board_content.jsp?title=<%=title%>"><%=title%></a></td>
+=======
+					<td><a href="board_content.jsp?title=<%=id%>"><%=id%></a></td>
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
+					<td><%=name%></td>
+					<td><%=date%></td>
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
 				</tr>
 				<%
 				}

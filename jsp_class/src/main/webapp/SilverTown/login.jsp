@@ -11,7 +11,13 @@
 <body>
 
  <main class="center">
+<<<<<<< HEAD
         <a href="index.jsp"><img src="./img/dev.jpg" alt=""></a>
+=======
+        <img src="./img/dev.jpg" alt="">
+        
+        <!-- 로그인 -->
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
         <article class="login" id="login">
             <div class="content-wrap">
                 <h2>Sign In</h2>
@@ -28,6 +34,8 @@
                 </div>
             </article>
         </article>
+        
+        <!-- 회원가입 -->
         <article id="join" class="center">
             <div class="content-wrap">
                 <h2>Create Account</h2>

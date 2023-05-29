@@ -7,6 +7,7 @@
 **/
 package Myeong.Hun;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -46,3 +47,93 @@ public class LoginDao {
 		}
 	}
 }
+=======
+import java.io.Console;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class LoginDao {
+	//DBCP로 데이터베이스에 접근하여 Connection이 얻어오는 메소드
+	//1. 접근제어자 (Public or Private)
+	//2. 반환 데이터 타입 
+	//3. 입력 매개변수
+	private Connection getConnection() throws Exception{
+		
+		InitialContext initCtx = new InitialContext();
+		DataSource ds = (DataSource) initCtx.lookup("java:comp/env/jdbc/silvertown");
+		
+		Connection con = ds.getConnection();
+		
+		return con;
+	}
+	
+	//로그인, 회원가입, 정보수정, 회원탈퇴
+	public LoginDto memberFunction(LoginDto dto, String keyword) {
+		PreparedStatement pstmt = null;
+		LoginDto member = new LoginDto();
+		
+		try(Connection con = getConnection()){
+			
+			//L = 로그인
+			if(keyword.equals("L")) {
+				String sql = "SELECT * FROM member WHERE email=? AND password=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dto.getEmail());
+				pstmt.setString(2, dto.getPassword());
+				ResultSet rs = pstmt.executeQuery();
+				pstmt.close();
+				
+				if(rs.next()) {
+					member.setEmail(rs.getString("email"));
+					member.setName(rs.getString("name"));
+					member.setCreated_at(rs.getString("Created_at"));
+					member.setId(rs.getString("id"));
+					member.setPassword(rs.getString("password"));
+					member.setPhone_number(rs.getString("phone_number"));
+				}
+			}
+			
+			//I = 회원가입
+			if(keyword.equals("I")) {
+			    String sql = "INSERT INTO MEMBER (NAME, EMAIL, PASSWORD, PHONE_NUMBER) "
+			            + "VALUES (?, ?, ?, ?)";
+			    pstmt = con.prepareStatement(sql);
+			    pstmt.setString(1, dto.getName());
+			    pstmt.setString(2, dto.getEmail());
+			    pstmt.setString(3, dto.getPassword());
+			    pstmt.setString(4, dto.getPhone_number());
+			    int result = pstmt.executeUpdate();
+			    pstmt.close();
+			    
+			    if(result > 0) {
+			        member.setEmail(dto.getEmail());
+			        member.setName(dto.getName());
+			        member.setPassword(dto.getPassword());
+			        member.setPhone_number(dto.getPhone_number());
+			    }
+			}  
+			
+			//U = 정보수정
+			if(keyword.equals("U")) {
+				
+			}
+			
+			//D = 회원탈퇴
+			if(keyword.equals("D")) {
+				
+			}
+			
+			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return member;
+		}
+}
+>>>>>>> branch 'hun' of https://github.com/whiteDwarff/Team__SilverTown.git
