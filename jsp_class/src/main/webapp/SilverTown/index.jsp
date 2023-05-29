@@ -60,7 +60,7 @@
             <img src="./img/spring.png" alt="">
             <span>Spring</span>
           </div>
-        </div>r
+        </div>
       </article>
   </section>
   <section>

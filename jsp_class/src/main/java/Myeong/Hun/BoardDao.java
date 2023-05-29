@@ -47,7 +47,7 @@ public class BoardDao {
 	}
 	
 	//게시글 제거 + 댓글까지 삭제
-	public void boardDelete(String boardId) {
+	public void boardDelete(int boardId) {
 		String sql1 = "DELETE FROM COMMENT WHERE POST_ID = ?";
 		String sql2 = "DELETE FROM BOARD WHERE ID = ?";
 		
@@ -57,8 +57,8 @@ public class BoardDao {
 				PreparedStatement pstmt2 = con.prepareStatement(sql2);
 				)
 		{
-			pstmt1.setString(1, boardId);
-			pstmt2.setString(1, boardId);
+			pstmt1.setInt(1, boardId);
+			pstmt2.setInt(1, boardId);
 			pstmt1.executeUpdate();
 			pstmt2.executeUpdate();
 		} catch (Exception e) {
@@ -168,5 +168,51 @@ public class BoardDao {
 		}
 		return dtos;
 	}
+	
+	
+	//댓글 작성 수정 삭제
+public void commentFunction(BoardDto dto,String keyword) {
+		
+		String sql = "";
+		PreparedStatement pstmt = null;
+		
+		try (Connection con = getConnection();){
+			if(keyword.equals("I")) {
+				sql = "INSERT INTO COMMENT (author_id, post_id, content) VALUES ((SELECT ID FROM MEMBER WHERE NAME = ?), ?, ?)";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getName());
+				pstmt.setInt(2, dto.getPost_id());
+				pstmt.setString(3, dto.getComment_content());
+				
+				pstmt.executeUpdate();
+				
+			} else if(keyword.equals("U")) {
+				sql = "update member set  password = ?, phone_number = ? where email = ?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getAuthor_id());
+				pstmt.setString(2, dto.getAuthor_id());
+				pstmt.setString(3, dto.getAuthor_id());
+				
+				pstmt.executeUpdate();
+				
+			} else if(keyword.equals("D")) {
+				sql = "delete from member where email = ?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getAuthor_id());
+
+				pstmt.executeUpdate();
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} 
+		
+	}
+	
+	
+	
 
 }

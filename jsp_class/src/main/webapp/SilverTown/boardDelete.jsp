@@ -14,8 +14,7 @@
     <%@page import="Myeong.Hun.BoardDao"%>
 <%
 	request.setCharacterEncoding("utf-8");
-
-	String boardId = request.getParameter("boardId");
+	int boardId = Integer.parseInt(request.getParameter("boardId"));
 	
 	new BoardDao().boardDelete(boardId);
 %>

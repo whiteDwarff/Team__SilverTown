@@ -1,3 +1,5 @@
+<%@page import="Myeong.Hun.BoardDao"%>
+<%@page import="Myeong.Hun.BoardDto"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
@@ -19,8 +21,9 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String name = (String) session.getAttribute("name");
-	String content = request.getParameter("comment_content");
-	String boardId = request.getParameter("board_Id");
+	String comment_content = request.getParameter("comment_content");
+	int boardId = Integer.parseInt(request.getParameter("board_Id"));
+	String title = request.getParameter("title");
 	
 	if (name == null || name.length() < 1) {
 		%>
@@ -34,7 +37,7 @@
 
 	
 	
-<%
+<%--
 	  InitialContext initCtx = new InitialContext();
 	  Context ctx = (Context)initCtx.lookup("java:comp/env");
 	  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
@@ -48,16 +51,18 @@
 		pstmt.setString(3, content);
 		
 		int i = pstmt.executeUpdate();
+		--%>
+		<%
+	BoardDto dto = new BoardDto();
+		dto.setName(name);
+		dto.setPost_id(boardId);
+		dto.setComment_content(comment_content);
+	BoardDao dao = new BoardDao();
+	dao.commentFunction(dto, "I");
 		
-		if(i>0){
-			%>
+		%>
 			<script>
 			alert("댓글이 정상적으로 등록되었습니다.");
-			history.back();
+			location.href = 'board_content.jsp?title=<%=title %>';
 			</script>
-			
-			<%
-		}
-	}
-	}
-%>
+<%}%>

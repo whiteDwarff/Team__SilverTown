@@ -24,6 +24,8 @@
 <title>CodeGrow</title>
 <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
 <link rel="stylesheet" href="./style/board.css?after">
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/>
 </head>
 <body>
 
@@ -31,12 +33,15 @@
 
 	<section id="board-section">
 		<div class="board-list">
-			<table class="table table-hover">
+			<table class="table table-hover" id="foo-table">
+			<thead>
 				<tr class="post-item">
 					<th class="post-title">게시글 제목</th>
 					<th class="post-author">작성자</th>
 					<th class="post-date">작성일</th>
 				</tr>
+				</thead>
+				<tbody>
 				<%
 				request.setCharacterEncoding("utf-8");
 
@@ -44,6 +49,7 @@
 				ArrayList<BoardDto> dtos = dao.boardList();
 				for (BoardDto dto : dtos) {
 				%>
+				
 				<tr>
 					<td><a href="board_content.jsp?title=<%=dto.getTitle()%>"><%=dto.getTitle()%></a></td>
 					<td><%=dto.getAuthor_name()%></td>
@@ -52,8 +58,13 @@
 				<%
 				}
 				%>
-
+</tbody>
 			</table>
+			<script type="text/javascript">
+jQuery(function($){ 
+	$("#foo-table").DataTable(); 
+}); 
+</script>
 			<%
 			if (session.getAttribute("email") != null) {
 				out.println("<a id='qna-button' href='write.jsp'>문의하기</a>");

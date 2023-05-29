@@ -37,6 +37,8 @@ public class BoardDto {
 	
 	private List<BoardDto> commentList;
 	
+	private int post_id;
+	
 	
 
 	
@@ -211,6 +213,18 @@ public class BoardDto {
 	 */
 	public void setCreated_date(String created_date) {
 		this.created_date = created_date;
+	}
+	/**
+	 * @return the post_id
+	 */
+	public int getPost_id() {
+		return post_id;
+	}
+	/**
+	 * @param post_id the post_id to set
+	 */
+	public void setPost_id(int post_id) {
+		this.post_id = post_id;
 	}
 	
 	

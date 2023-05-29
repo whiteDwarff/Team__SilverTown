@@ -116,7 +116,7 @@
 		const btnWrap2nd = document.getElementsByClassName('button-wrap')[1];
 	    let template = 
 			"<a id='update-button'>수정</a>" +
-			"<a href='#'>삭제</a>"
+			"<a href='boardDelete.jsp?boardId=<%=boardId%>'>삭제</a>"
 			btnWrap2nd.insertAdjacentHTML('beforeend', template);
 	</script>
 	<% 
@@ -135,6 +135,7 @@
 		<input type="text" placeholder="이름" name="comment_name" class="hidden"> 
 		<input type="text" name="comment_content" id="comment"> 
 		<input type="text" value="<%= boardId %>" name="board_Id" class="hidden">
+		<input type="text" value="<%= title %>" name="title" class="hidden">
 		<button id="submit-button">등록</button>
 	</form>
 	  </div>
@@ -151,9 +152,15 @@
 	    		"<span id='main-update-button'>수정</span>" +
 	    		"<a onclick='confirmDelete()'>삭제</a>";
 	    	btnWrap.insertAdjacentHTML('beforeend', template);
+	    	
+	    	 function confirmDelete() {
+	    	        if (confirm("삭제하시겠습니까?")) 
+	    	          location.href = "boardDelete.jsp?boardId=<%=boardId%>";
+	    			}
    	</script>
    <% } %>
-   <script src="./script/border-content.js"></script>
+   
+   <script src="./script/border_test.js"></script>
 	   
 </body>
 </html>

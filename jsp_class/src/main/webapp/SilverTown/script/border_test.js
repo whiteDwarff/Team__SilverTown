@@ -1,8 +1,5 @@
 
- function confirmDelete() {
-        if (confirm("삭제하시겠습니까?")) 
-          location.href = "boardDelete.jsp?boardId=<%=boardId%>";
-		}
+
  function confirmCommentDelete() {
 		if (confirm("댓글을 삭제 하시겠습니까?")) 
 		  location.href = "";
