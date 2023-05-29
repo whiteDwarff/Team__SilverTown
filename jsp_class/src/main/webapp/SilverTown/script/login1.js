@@ -21,11 +21,11 @@
         // 로그인 유효성 검사
         loginForm.addEventListener('submit', e => {
             if(submitTest(loginInput[0])){
-							changeStyle(loginInput[0], '#73d09a', '아이디를 입력하세요.');
-							e.preventDefault();
-						} else if(submitTest(loginInput[1])) {
-							changeStyle(loginInput[1], '#73d09a', '비밀번호를 입력하세요.');
-							e.preventDefault();
+				changeStyle(loginInput[0], '#73d09a', '아이디를 입력하세요.');
+				e.preventDefault();
+			} else if(submitTest(loginInput[1])) {
+				changeStyle(loginInput[1], '#73d09a', '비밀번호를 입력하세요.');
+				e.preventDefault();
             }
         })
         for(let item of loginInput) {

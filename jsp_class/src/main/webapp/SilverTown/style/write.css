@@ -1,52 +1,37 @@
-body {
-  font-family: sans-serif;
-  padding: 0;
-  margin: 0;
+section {
+	width: 60%;
+	margin: 0 auto;
 }
-
-h1 {
-  text-align: center;
+#title {
+	border-bottom: 1px solid #ccc;
+	padding: 20px 0;
+	margin: 50px 0;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 600px;
-  margin: 0 auto;
+label {
+	display: block;
+	margin: 20px 0 6px 0;
 }
-
-input[type="text"],
+input,
 textarea {
-  margin-bottom: 10px;
-  padding: 5px;
-  font-size: 16px;
+	display: block;
+	width: 100%;
+	outline: none;
 }
-
-button[type="submit"] {
-  padding: 5px 10px;
-  font-size: 16px;
-  background-color: #007bff;
+input {
+	padding: 5px 0 5px 30px;
+}
+textarea {
+	resize: none;
+	padding-top: 5px;
+	padding: 5px 30px;
+}
+#submit-button {
+  display: block;
+  padding: 10px 20px;
+  background-color: #73d09a;   
   color: #fff;
-  border: none;
-  border-radius: 3px;
-}
-
-button[type="submit"]:hover {
-  background-color: #0062cc;
+  border-style: none;
+  border-radius: 5px;
   cursor: pointer;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  border-bottom: 1px solid #ccc;
-  padding: 10px;
-}
-
-li:last-child {
-  border-bottom: none;
+  margin: 20px 0 50px auto;
 }
