@@ -16,14 +16,12 @@
 	BoardDao dao = new BoardDao();
 	dao.boardUpdate(dto);
 	
-/* 	response.sendRedirect("board_content.jsp"); */
 %>
-
 
 <%= request.getParameter("content") %>
 <%= request.getParameter("title") %>
 <script>
 	alert("수정되었습니다.");
-	location.href="board.jsp";
+	// location.href="board.jsp";
 </script>
 

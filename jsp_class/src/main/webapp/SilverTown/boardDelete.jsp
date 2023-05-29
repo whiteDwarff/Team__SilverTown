@@ -21,7 +21,7 @@
 %>
 
 <script>
-	let ans = alert("삭제되었습니다!");
+	let ans = alert("삭제되었습니다.");
 	if (!ans){
 		location.href='board.jsp';
 	}

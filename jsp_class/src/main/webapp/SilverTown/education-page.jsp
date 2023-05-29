@@ -202,8 +202,17 @@ try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareS
 	<script src="./script/theme.js"></script>
 
 	<script>
-		// --------------------- ajax handler -------------------===
+		// --------------------- ajax handler ------------------
+	<%-- 	<% if(session.getAttribute("name") == null) {
+		
+		} else {
+		%> --%>
 	    $('#addToFavoritesBtn').click(function() {
+	    	// --------------------- ajax handler ------------------
+	   	<% if(session.getAttribute("name") == null) {
+	    		response.sendRedirect("login.jsp");
+	    		} else {
+	    		%>
 	    	let el =  $('#addToFavoritesBtn').text()
 	    	// 이미 동영상을 등록한 경우 (중복 등록 방지)
 	    	if(el.includes("찜한강의")) {
@@ -235,6 +244,7 @@ try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareS
 				})
 	    	} 
     	})
+    	 <% } %> 
 		// ---------------------codeEditor handler -----------------------
 		function runCode() {
 			var code = editor.getValue();
