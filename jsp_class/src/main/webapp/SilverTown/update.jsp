@@ -19,8 +19,6 @@ String pwdCheck = (String) session.getAttribute("password");
 				<div id="update-form">
 					<h2>개인 정보 수정</h2>
 					<div id="p-zone">
-					<p><em>다른 아이디/사이트에서 사용한 적 없는 비밀번호</em></p>
-					<p><em>이전에 사용한 적 없는 비밀번호가 안전합니다.</em></p>
 					</div>
 					<form action="update_ok.jsp" method="post" id="join-form" onsubmit="return validateForm()">
 						<input type="text" name="email" value="<%=session.getAttribute("email")%>" readonly>
@@ -29,9 +27,12 @@ String pwdCheck = (String) session.getAttribute("password");
 						<input type="password" name="password" id="password" placeholder="현재 비밀번호">
 						<input type="password" name="newPwd" id="newPwd" placeholder="새 비밀번호">
 						<input type="password" name="newPwd2" id="newPwd2" placeholder="새 비밀번호 확인">	
-						<input id="join-submit-btn" class="submit-button" type="submit" value="수정">
 					</form>
-					<button onclick="location.href = 'index.jsp'" id="cancel-btn">취소</button>
+					<div class="button-wrap">
+						<button id="join-submit-btn" class="flex-button">제출</button>
+						<a href="index.jsp" class="flex-button">취소</a>
+						<!-- <button onclick="location.href = 'index.jsp'" id="cancel-btn">취소</button> -->
+					</div>
 				</div>
 			</div>
 		</article>

@@ -7,7 +7,8 @@
 
 	// content로 전송되는 parameter 받기
 	String content = request.getParameter("content");
-	String title = request.getParameter("title"); 
+	String title = request.getParameter("boardTitleName"); 
+	// String id = request.getParameter("boardTitle"); 
 	
 	BoardDto dto = new BoardDto();
 	dto.setUpdate_Content(content);
@@ -22,6 +23,6 @@
 <%= request.getParameter("title") %>
 <script>
 	alert("수정되었습니다.");
-	// location.href="board.jsp";
+	location.href="board_content.jsp?title=<%=title%>";
 </script>
 

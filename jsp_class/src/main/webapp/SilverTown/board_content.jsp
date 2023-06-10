@@ -25,6 +25,7 @@
 	BoardDto dto = new BoardDto();
 	dto = dao.boardView(getTitle);
 
+	
 	String boardId = dto.getId();
 	String title = dto.getTitle();
 	String content = dto.getContent();
@@ -118,11 +119,12 @@
 	<section id="form">
 	  <div class="form-wrap">
 	  <span>댓글작성</span>
-	  	<form method="get" action="board_comment_insert.jsp">
+	  	<form method="get" action="board_comment_insert.jsp" id="contentForm">
 		<!-- name, boardId는 display: none -->
 		<input type="text" placeholder="이름" name="comment_name" class="hidden"> 
 		<input type="text" name="comment_content" id="comment"> 
 		<input type="text" value="<%= boardId %>" name="board_Id" class="hidden">
+		<input type="text" value="<%= title %>" name="title" class="hidden">
 		<button id="submit-button">등록</button>
 	</form>
 	  </div>
@@ -134,35 +136,45 @@
 	<script>
 	   const count = document.getElementById('count'),
 	         authorName = document.getElementsByClassName('name'),
-	         hiddenForm = document.getElementsByClassName('hidden-form-wrap');
-	   count.innerText = "<%= count %> 개의 댓글 (총 <%= count %>개)"; 
-	   
+	         hiddenForm = document.getElementsByClassName('hidden-form-wrap'),
+	       	 updateButton = document.getElementsByClassName('update-input'),
+	       	 title = document.getElementsByTagName('h3')[0].innerText,
+	       	 sliceTitle = title.replace('Q. ', ''),
+	         content = document.querySelectorAll('.content'),
+	         buttonWrap = document.getElementsByClassName('button-wrap'),
+		 	 updateBtn = document.getElementsByClassName('update-button'),
+	   		 contentForm = document.getElementById('contentForm');
+	  count.innerText = "<%= count %> 개의 댓글 (총 <%= count %>개)"; 
 	  
 	  // 게시글 작성자가 session에 저장된 'name'과 같으면 수정 및 삭제, form을 생성 
 	  for(let i=0; i<authorName.length; i++) {
 		  if(authorName[i].innerText == "<%= session.getAttribute("name") %>") {
-			  
 			  // 기존 댓글의 내용 
 			  let orgContent = document.getElementsByClassName('content');
-			  
+			  // session이 유효할 경우 수정, 삭제 버튼 생성
 			  let template = 
 		    		"<span class='update-button'>수정</span>" +
-		    		"<a href='#'>삭제</a>";
+		    		<%-- "<a href='commentsDelete.jsp?content=" + content[i].innerText + "&boardId=<%= boardId %>&title=" + sliceTitle + "'>삭제</a>" --%>
+		    		"<a href='#'>삭제</a>"
 		      document.getElementsByClassName('button-wrap')[i].insertAdjacentHTML('beforeend', template);
+		      
+		      // session이 유효할 경우 수정 form 생성
 		      template = 
 		    		  "<form class='hidden hidden-form' action='commentsUpdate.jsp' method='post'>"
 		    		// 변경될 댓글내용 
 			 		+ "<input class='update-input' name='content'>"
+			 		
+			 		////////////////////////////////////////////////////////////////////////////
+			 		+ "<input style='display:none' name = 'boardTitle' value = <%=boardId%> >"
+	                + "<input style='display:none' name = 'boardTitleName' value ='"+sliceTitle+"'>"
+					////////////////////////////////////////////////////////////////////////////			 		
+			 		
 			 		// 기존 댓글의 내용을 value로 전송
 			 	    + "<input style='display:none' name='title' value='" + orgContent[i].innerText + "'>"
 			 	    + "<button>제출</button></form>"
 			 document.getElementsByClassName('hidden-form-wrap')[i].insertAdjacentHTML('beforeend', template);
-			 console.log(orgContent[i].innerText)
 		  }
 	  }			
-	  
-	  const updateBtn = document.getElementsByClassName('update-button');
-	  const deleteBtn = document.querySelectorAll('.button-wrap a');
 	  
 	  // form의 display 속성을 변경시키는 event handler
 	  for(let i=0; i<updateBtn.length; i++) {
@@ -176,27 +188,39 @@
 	  			e.target.innerText = '수정';
 	  		}
 	  	})
-	  	// 댓글을 삭제하는 event handler
-	  	if(i) {
-	  		console.log(deleteButton[i])
-	  		deleteBtn[i].addEventListener('click', e => {
-	  			if(confirm('댓글을 삭제하시겠습니까?')) {
-	  				e.target.href='commentsDelete.jsp';
-	  			}
-	  		})
-	  	// 게시글을 삭제하는 event handler
-	  	} else {
-	  		deleteBtn[0].addEventListener('click', e => {
-	  			if(confirm('게시글을 삭제하시겠습니까?')) {
-	  				e.target.href='boardDelete.jsp?boardId=<%= boardId %>';
-	  			}
-	  		})
-	  		// 게시글 from의 action 속성 변경 
-	  		document.getElementsByClassName('hidden-form')[0].action = 'boardUpdate.jsp';
-	  	    document.querySelector('#main-content > div > div.flex-box > div > form > input:nth-child(2)')
-	  	    .value = '<%= title %>'
-	  	}
 	  }
+	  // 게시글 a태그의 href와 form의 action 속성 변경 
+	  for(let i=0; i<buttonWrap.length; i++) {
+		  for(let j=0; j<buttonWrap[i].children.length; j++) {
+			  if(i == 0 && buttonWrap[i].children[j].classList.contains('update-button')) {
+				document.querySelector('#main-content > div > div.flex-box > div > form').action = 'boardUpdate.jsp';
+				<%-- buttonWrap[i].children[1].href='boardDelete.jsp?boardId=<%= boardId %>'; --%> 
+			}
+		  }
+	  }
+	  
+	  const  deleteBtn = document.querySelectorAll('.button-wrap a');
+	  // 삭제하기 버튼을 클릭하면 게시판과 댓글을 구분하여 href 속성 변경
+	  for(let i=0; i<deleteBtn.length; i++) {
+		  let contentText = deleteBtn[i].parentNode.previousElementSibling.children[1].children[0].innerText
+		  deleteBtn[i].addEventListener('click', e => {
+			  if(deleteBtn[i].parentNode == buttonWrap[0]) {
+				  if(confirm('게시글을 삭제하시겠습니까?')) e.target.href = 'boardDelete.jsp?boardId=<%= boardId %>'; 
+			  } else {
+				  if(confirm('댓글을 삭제하시겠습니까?')) e.target.href = 'commentsDelete.jsp?content=' + contentText + '&boardId=<%= boardId %>&title=' + sliceTitle
+			  }
+		  })
+	  }
+	  contentForm.addEventListener('submit', e => {
+		  let comment = document.getElementById('comment');
+		  if(comment.value == '') {
+			  e.preventDefault();
+			  alert('댓글을 입력해주세요.');
+		  } else if(comment.value < 2) {
+			  e.preventDefault();
+			  alert('댓글은 두글자 이상 입력해주세요.');
+		  }
+	  })
    	</script>
    
 </body>

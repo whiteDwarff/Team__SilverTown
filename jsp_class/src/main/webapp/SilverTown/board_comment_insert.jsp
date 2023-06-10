@@ -21,6 +21,7 @@
 	String name = (String) session.getAttribute("name");
 	String content = request.getParameter("comment_content");
 	String boardId = request.getParameter("board_Id");
+	String title = request.getParameter("title");
 	
 	if (name == null || name.length() < 1) {
 		%>
@@ -53,7 +54,7 @@
 			%>
 			<script>
 			alert("댓글이 정상적으로 등록되었습니다.");
-			history.back();
+			location.href="board_content.jsp?title=<%= title %>"
 			</script>
 			
 			<%
