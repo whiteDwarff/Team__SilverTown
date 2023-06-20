@@ -21,8 +21,10 @@
 %>
 
 <script>
-	let ans = alert("삭제되었습니다.");
-	if (!ans){
+	alert("삭제되었습니다.");
+	if (<%= session.getAttribute("name").equals("admin") %>){
+		location.href='news.jsp';
+	} else {
 		location.href='board.jsp';
 	}
 </script>

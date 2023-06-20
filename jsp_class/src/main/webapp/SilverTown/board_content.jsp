@@ -64,7 +64,7 @@
 			   </div>
 			</div>
 		    <div class="button-wrap"></div>
-	   </div>   <!-- qna-wrap -->
+	   </div>
 	</section><!-- main-content -->
 	
 	
@@ -104,11 +104,9 @@
 		<div class="hidden-form-wrap">
 			<span class="content"><%=commentCONTENT %></span>
 		</div>
-	</div> <!-- flex-box -->
+	</div>
 	<div class="button-wrap"></div>
-   </div> <!-- qna-wrap -->
-	<!-- 댓글 -->
-
+   </div> 
 	<% 
       }      
   	} catch (Exception e) {
@@ -154,7 +152,6 @@
 			  // session이 유효할 경우 수정, 삭제 버튼 생성
 			  let template = 
 		    		"<span class='update-button'>수정</span>" +
-		    		<%-- "<a href='commentsDelete.jsp?content=" + content[i].innerText + "&boardId=<%= boardId %>&title=" + sliceTitle + "'>삭제</a>" --%>
 		    		"<a href='#'>삭제</a>"
 		      document.getElementsByClassName('button-wrap')[i].insertAdjacentHTML('beforeend', template);
 		      
@@ -163,12 +160,10 @@
 		    		  "<form class='hidden hidden-form' action='commentsUpdate.jsp' method='post'>"
 		    		// 변경될 댓글내용 
 			 		+ "<input class='update-input' name='content'>"
-			 		
 			 		////////////////////////////////////////////////////////////////////////////
 			 		+ "<input style='display:none' name = 'boardTitle' value = <%=boardId%> >"
 	                + "<input style='display:none' name = 'boardTitleName' value ='"+sliceTitle+"'>"
 					////////////////////////////////////////////////////////////////////////////			 		
-			 		
 			 		// 기존 댓글의 내용을 value로 전송
 			 	    + "<input style='display:none' name='title' value='" + orgContent[i].innerText + "'>"
 			 	    + "<button>제출</button></form>"
@@ -194,7 +189,6 @@
 		  for(let j=0; j<buttonWrap[i].children.length; j++) {
 			  if(i == 0 && buttonWrap[i].children[j].classList.contains('update-button')) {
 				document.querySelector('#main-content > div > div.flex-box > div > form').action = 'boardUpdate.jsp';
-				<%-- buttonWrap[i].children[1].href='boardDelete.jsp?boardId=<%= boardId %>'; --%> 
 			}
 		  }
 	  }

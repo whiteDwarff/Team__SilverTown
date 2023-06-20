@@ -8,7 +8,6 @@
 	// content로 전송되는 parameter 받기
 	String content = request.getParameter("content");
 	String title = request.getParameter("boardTitleName"); 
-	// String id = request.getParameter("boardTitle"); 
 	
 	BoardDto dto = new BoardDto();
 	dto.setUpdate_Content(content);

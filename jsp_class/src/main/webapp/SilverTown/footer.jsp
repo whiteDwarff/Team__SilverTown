@@ -18,6 +18,7 @@
 <style>
 footer {
 	text-align: center;
+	width: 100%;
 	background: rgb(244, 244, 244, 0.5);
 	margin-top: 100px;
 	padding: 20px 0;

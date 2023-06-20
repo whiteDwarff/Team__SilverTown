@@ -1,64 +1,29 @@
+<%@page import="Myeong.Hun.BoardDao"%>
+<%@page import="Myeong.Hun.BoardDto"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
-<%
-/*
-=============================================
-작성자 : 박훈명
-작성일 : 2023. 5. 13.
-프로그램 기능 : 댓글 작성
-=============================================
-*/
-%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        
-        
 <%
 	request.setCharacterEncoding("utf-8");
 	String name = (String) session.getAttribute("name");
 	String content = request.getParameter("comment_content");
 	String boardId = request.getParameter("board_Id");
 	String title = request.getParameter("title");
-	
-	if (name == null || name.length() < 1) {
-		%>
-		<script>
-			alert("로그인을 먼저 해주세요.");
-			location.href = 'login.jsp';
-		</script>
-	<%}
-	else {%>
-	
 
+	BoardDto dto = new BoardDto();
+	BoardDao dao = new BoardDao();
 	
+	dto.setComment_content(content);
+	dto.setAuthor_name(name);
+	dto.setComment_post_id(boardId);
 	
-<%
-	  InitialContext initCtx = new InitialContext();
-	  Context ctx = (Context)initCtx.lookup("java:comp/env");
-	  DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
-	
-	String sql = "INSERT INTO COMMENT (author_id, post_id, content) VALUES ((SELECT ID FROM MEMBER WHERE NAME = ?), ?, ?)";
-	
-	try(Connection con = ds.getConnection();
-			PreparedStatement pstmt = con.prepareStatement(sql)){
-		pstmt.setString(1, name);
-		pstmt.setString(2, boardId);
-		pstmt.setString(3, content);
-		
-		int i = pstmt.executeUpdate();
-		
-		if(i>0){
-			%>
-			<script>
-			alert("댓글이 정상적으로 등록되었습니다.");
-			location.href="board_content.jsp?title=<%= title %>"
-			</script>
-			
-			<%
-		}
-	}
-	}
+	dao.commentFunction(dto, "I");
 %>
+<script>
+	alert('댓글이 등록되었습니다.')
+	location.href = 'board_content.jsp?title=<%= title %>';
+</script>

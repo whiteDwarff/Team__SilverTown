@@ -1,9 +1,3 @@
-/**
-* 작성자 : EAN21V12
-* 작성일 : 2023. 5. 12.
-* 파일명 : BoardDao.java
-* 프로그램 설명 : 
-**/
 package Myeong.Hun;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,11 +10,6 @@ import java.sql.*;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-/**
- * @author EAN21V12
- *
- */
 public class BoardDao {
    
    private Connection getConnection() throws Exception{
@@ -32,6 +21,37 @@ public class BoardDao {
       return con;
    }
    
+   public void boradInsert(BoardDto dto) {
+	   String sql = "INSERT INTO board (title, content, author_id) SELECT ?, ?, id FROM member WHERE name = ?";
+	   
+	   try(Connection con = getConnection(); 
+		         PreparedStatement pstmt = con.prepareStatement(sql);){
+		   
+		      pstmt.setString(1, dto.getTitle());
+		      pstmt.setString(2, dto.getContent());
+		      pstmt.setString(3,dto.getAuthor_name());
+		      int i = pstmt.executeUpdate();
+		   
+		}catch(Exception e){
+		   e.printStackTrace();
+		}
+   }
+   // amin 계정의 게시글 작성
+   public void adminBoardInsert(BoardDto dto) {
+	   String sql = "INSERT INTO board (title, content, author_id) values (?, ?, (select id from member where name = admin)";
+	   
+	   try(Connection con = getConnection(); 
+		         PreparedStatement pstmt = con.prepareStatement(sql);){
+		   
+		      pstmt.setString(1, dto.getTitle());
+		      pstmt.setString(2, dto.getContent());
+		      pstmt.setString(3,dto.getAuthor_name());
+		      int i = pstmt.executeUpdate();
+		   
+		}catch(Exception e){
+		   e.printStackTrace();
+		}
+   }
    
    //게시판 수정하기
    public void boardUpdate(BoardDto dto) {
@@ -115,7 +135,7 @@ public class BoardDao {
           return dto;
    }
    
-   //게시판 게시글의 댓글내용, 작성시간, 작성자를 가져옴
+   // 게시판 게시글의 댓글내용, 작성시간, 작성자를 가져옴
    public List<BoardDto> comment(String boardId) {
        String sql = "SELECT C.CONTENT, C.CREATED_AT, M.NAME "
                + "FROM COMMENT C "
@@ -143,10 +163,10 @@ public class BoardDao {
        return commentList;
    }
    
-   //모든 게시글을 가져오기
+   // admin 게시글을 제외한 모든 게시글을 가져오기
    public ArrayList<BoardDto> boardList(){
       String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name "
-            + "FROM board INNER JOIN member ON board.author_id = member.id ORDER BY 1 Desc;";
+            + "FROM board INNER JOIN member ON board.author_id = member.id where member.name <> 'admin' ORDER BY 1 Desc;";
       ArrayList<BoardDto> dtos = new ArrayList<BoardDto>();
    
    
@@ -169,10 +189,34 @@ public class BoardDao {
       }
       return dtos;
    }
+   // admin 계정의 공지사항 불러오기 
+   public ArrayList<BoardDto> adminBoardList(){
+      String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name "
+            + "FROM board INNER JOIN member ON board.author_id = member.id where member.name ='admin' ORDER BY 1 Desc;";
+      ArrayList<BoardDto> dtos = new ArrayList<BoardDto>();
    
+   
+   try(Connection con = getConnection();
+      Statement stmt = con.createStatement();)
+   
+   { ResultSet rs = stmt.executeQuery(sql);
+      
+      while (rs.next()) {
+         BoardDto dto = new BoardDto();
+         dto.setTitle(rs.getString("title"));
+         dto.setAuthor_name(rs.getString("author_name"));
+         dto.setCreated_date(rs.getString("created_date"));
+         dtos.add(dto);
+      }
+   }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+      return dtos;
+   }
    
    //댓글 작성, 수정, 삭제
-public void commentFunction(BoardDto dto,String keyword) {
+   public void commentFunction(BoardDto dto,String keyword) {
       
       String sql = "";
       PreparedStatement pstmt = null;
@@ -196,8 +240,6 @@ public void commentFunction(BoardDto dto,String keyword) {
             pstmt.setString(2, dto.getContent());
             pstmt.setString(3, dto.getTitle());
             
-
-            
             pstmt.executeUpdate();
             
          } else if(keyword.equals("D")) {
@@ -206,8 +248,7 @@ public void commentFunction(BoardDto dto,String keyword) {
             
             pstmt.setString(1, dto.getContent());
             pstmt.setString(2, dto.getId());
-            
-
+        
             pstmt.executeUpdate();
          }
          

@@ -2,13 +2,6 @@
 <%@page import="Myeong.Hun.BoardDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Myeong.Hun.BoardDao"%>
-<%
-/*====================================
-작성자 : 2023. 5. 12.
-작성일 : seohyun
-프로그램 기능 :
-=====================================*/
-%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
@@ -68,7 +61,7 @@
 	<script src="./script/header.js"></script>
 	<script>
 		const li = document.querySelectorAll('nav a');
-		const liLast = document.querySelector('nav a:last-child');
+		const liLast = document.querySelector('nav a:nth-child(6)');
 		for (let i = 0; i < li.length; i++) {
 			li[i].style.filter = 'blur(1px)';
 		}

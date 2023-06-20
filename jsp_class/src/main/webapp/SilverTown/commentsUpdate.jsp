@@ -20,13 +20,8 @@ dto.setTitle(boardTitle);
 BoardDao dao = new BoardDao();
 dao.commentFunction(dto, "U");
 
-out.println(updateContent);
-out.println(content);
-out.println(boardTitle);
-out.println(boardTitleName);
 %>
 <script>
 	alert("수정되었습니다.");
 	location.href="board_content.jsp?title=<%=boardTitleName%>";
-
 </script>

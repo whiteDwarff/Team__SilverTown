@@ -15,12 +15,9 @@
 	dto.setId(id);
 	
 	dao.commentFunction(dto, "D");
-	out.println(content);
-	out.println(id);
-	out.println(title);
-	out.println(dto);
 %>
+
 <script>
-alert('삭제되었습니다.');
-location.href="board_content.jsp?title=<%= title %>"
+	alert('삭제되었습니다.');
+	location.href="board_content.jsp?title=<%= title %>"
 </script>

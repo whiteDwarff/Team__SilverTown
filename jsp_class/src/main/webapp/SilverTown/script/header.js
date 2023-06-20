@@ -6,6 +6,10 @@ const navImg = document.querySelectorAll('.sub-gnb img'),
       selectInput = document.getElementById('search-input');
 let isSlideState = true;
       
+      
+ for(let item of section) {
+	 console.log(item);
+ }
 for(let i=0; i<navImg.length; i++){
     navImg[i].addEventListener('click', () => {
         

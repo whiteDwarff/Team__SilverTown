@@ -202,11 +202,6 @@ try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareS
 	<script src="./script/theme.js"></script>
 
 	<script>
-		// --------------------- ajax handler ------------------
-	<%-- 	<% if(session.getAttribute("name") == null) {
-		
-		} else {
-		%> --%>
 	    $('#addToFavoritesBtn').click(function() {
 	    	// --------------------- ajax handler ------------------
 	   	<% if(session.getAttribute("name") == null) {
