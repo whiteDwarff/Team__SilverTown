@@ -31,7 +31,61 @@ public class BoardDao {
       
       return con;
    }
+// 게시물 작성, 수정, 삭제
+public void boardFunction(BoardDto dto, String keyword) {
+   if (keyword.equals("I")) {
+      insertBoard(dto);
+   } else if (keyword.equals("U")) {
+      updateBoard(dto);
+   } else if (keyword.equals("D")) {
+      deleteBoard(dto.getId());
+   }
+}
+
+// 게시물 작성
+public void insertBoard(BoardDto dto) {
+   String sql = "INSERT INTO board (title, content, author_id) SELECT ?, ?, id FROM member WHERE name = ?";
+   try (Connection con = getConnection();
+         PreparedStatement pstmt = con.prepareStatement(sql);) {
+      pstmt.setString(1, dto.getTitle());
+      pstmt.setString(2, dto.getContent());
+      pstmt.setString(3, dto.getName());
+      
+      pstmt.executeUpdate();
+   } catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+// 게시물 수정
+public void updateBoard(BoardDto dto) {
+   String sql = "UPDATE BOARD SET CONTENT = ? WHERE ID = ?";
    
+   try (Connection con = getConnection();
+         PreparedStatement pstmt = con.prepareStatement(sql);) {
+      pstmt.setString(1, dto.getContent());
+      pstmt.setString(2, dto.getId());
+      
+      pstmt.executeUpdate();
+   } catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+// 게시물 삭제
+public void deleteBoard(String boardId) {
+   String sql = "DELETE FROM BOARD WHERE ID = ?";
+   
+   try (Connection con = getConnection();
+         PreparedStatement pstmt = con.prepareStatement(sql);) {
+      pstmt.setString(1, boardId);
+      
+      pstmt.executeUpdate();
+   } catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
    
    //게시판 수정하기
    public void boardUpdate(BoardDto dto) {
@@ -120,7 +174,7 @@ public class BoardDao {
        String sql = "SELECT C.CONTENT, C.CREATED_AT, M.NAME "
                + "FROM COMMENT C "
                + "JOIN MEMBER M ON C.AUTHOR_ID = M.ID "
-               + "WHERE C.POST_ID = ?";
+               + "WHERE C.POST_ID = ? order by 2";
        List<BoardDto> commentList = new ArrayList<>();
 
        try (Connection con = getConnection();
@@ -130,9 +184,9 @@ public class BoardDao {
 
            while (rs.next()) {
                BoardDto commentDto = new BoardDto();
-               commentDto.setContent(rs.getString("CONTENT"));
-               commentDto.setCreated_at(rs.getString("CREATED_AT"));
-               commentDto.setName(rs.getString("NAME"));
+               commentDto.setComment_content(rs.getString("CONTENT"));
+               commentDto.setComment_created_at(rs.getString("CREATED_AT"));
+               commentDto. setComment_post_id(rs.getString("NAME"));
                commentList.add(commentDto);
            }
 
@@ -182,12 +236,11 @@ public void commentFunction(BoardDto dto,String keyword) {
             sql = "INSERT INTO COMMENT (author_id, post_id, content) VALUES ((SELECT ID FROM MEMBER WHERE NAME = ?), ?, ?)";
             pstmt = con.prepareStatement(sql);
             
-            pstmt.setString(1, dto.getAuthor_name());
+            pstmt.setString(1, dto.getComment_author_id());
             pstmt.setString(2, dto.getComment_post_id());
             pstmt.setString(3, dto.getComment_content());
             
             pstmt.executeUpdate();
-            
          } else if(keyword.equals("U")) {
             sql = "UPDATE COMMENT SET CONTENT = ? WHERE CONTENT = ? AND POST_ID = ?";
 

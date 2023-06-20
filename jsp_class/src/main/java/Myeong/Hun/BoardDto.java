@@ -213,6 +213,13 @@ public class BoardDto {
 		this.created_date = created_date;
 	}
 	
+	public BoardDto() {}
+	public BoardDto(String comment_post_id, String comment_author_id, String comment_content) {
+		this.comment_post_id = comment_post_id;
+		this.comment_author_id = comment_author_id;
+		this.comment_content = comment_content;
+	}
+
 	
 
 }

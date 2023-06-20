@@ -3,10 +3,6 @@
 <%@page import="Myeong.Hun.VideoListDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.sql.*"%>
-<%@page import="javax.sql.DataSource"%>
-<%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>
-<%@page import="javax.naming.InitialContext"%>
 <%
 request.setCharacterEncoding("utf-8");
 String title = request.getParameter("title");
@@ -14,19 +10,12 @@ String content = request.getParameter("content");
 String urlLink = request.getParameter("url");
 String lang = request.getParameter("lang");
 
-Class.forName("org.mariadb.jdbc.Driver");
-InitialContext initCtx = new InitialContext();
 
-Context ctx = (Context) initCtx.lookup("java:comp/env");
+VideoListDao dao = new VideoListDao();
+ArrayList<VideoListDto> dtos = dao.list(lang);
 
-DataSource ds = (DataSource) ctx.lookup("jdbc/project01_db");
-String sql = "select * from video where category_id = ?";
 
-try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-
-	pstmt.setString(1, lang);
-
-	ResultSet rs = pstmt.executeQuery();
+/* session.invalidate(); */
 %>
 
 <html>
@@ -84,27 +73,21 @@ try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareS
 					<!--  <span>조회수 : </span>  -->
 					<ul class="list">
 						<div class="scroll-box">
-							<%
-							while (rs.next()) {
-							%>
+							<%for(VideoListDto dto : dtos){%>
 							<!-- list -->
 							<li><a
-								href="education-page2.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%=rs.getString("category_id")%>">
+								href="education-page2.jsp?title=<%=dto.getTitle()%>&content=<%=dto.getDescription()%>&url=<%=dto.getUrl()%>&lang=<%=dto.getCategory_id()%>">
 									<embed controls=0
-										src="https://img.youtube.com/vi/<%=rs.getString("url")%>/maxresdefault.jpg"
+										src="https://img.youtube.com/vi/<%=dto.getUrl()%>/maxresdefault.jpg"
 										allowfullscreen class="sub-url"></embed>
 									<div>
-										<span class="sub-url-title"><%=rs.getString("title")%></span>
-										<span class="sub-url-content"><%=rs.getString("description")%></span>
+										<span class="sub-url-title"><%=dto.getTitle()%></span>
+										<span class="sub-url-content"><%=dto.getDescription()%></span>
 									</div>
-							</a></li>
+							</a></li> 
+							<%} %>
 							<!-- end  -->
-							<%
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-							%>
+							
 						</div>
 					</ul>
 				</div>

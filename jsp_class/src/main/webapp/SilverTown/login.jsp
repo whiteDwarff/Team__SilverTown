@@ -31,7 +31,7 @@
         <article id="join" class="center">
             <div class="content-wrap">
                 <h2>Create Account</h2>
-                <form action="insert.jsp" method="" id="join-form">
+                <form action="insert.jsp" method="post" id="join-form">
                     <input type="text" name="email" placeholder="이메일">
                     <input type="text" name="name" placeholder="이름">
                     <input type="text" name="tel" placeholder="휴대폰 번호 (-포함)">
