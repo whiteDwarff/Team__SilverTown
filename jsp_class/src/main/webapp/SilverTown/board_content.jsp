@@ -141,10 +141,8 @@ List<BoardDto> dtos = dao.comment(boardId);
 		    		// 변경될 댓글내용 
 			 		+ "<input class='update-input' name='content'>"
 			 		
-			 		////////////////////////////////////////////////////////////////////////////
 			 		+ "<input style='display:none' name = 'boardTitle' value = <%=boardId%> >"
 	                + "<input style='display:none' name = 'boardTitleName' value ='"+sliceTitle+"'>"
-					////////////////////////////////////////////////////////////////////////////			 		
 			 		
 			 		// 기존 댓글의 내용을 value로 전송
 			 	    + "<input style='display:none' name='title' value='" + orgContent[i].innerText + "'>"
@@ -152,6 +150,9 @@ List<BoardDto> dtos = dao.comment(boardId);
 			 document.getElementsByClassName('hidden-form-wrap')[i].insertAdjacentHTML('beforeend', template);
 		  }
 	  }			
+	  
+	  const updateBtn = document.getElementsByClassName('update-button');
+	  const deleteBtn = document.querySelectorAll('.button-wrap a');
 	  
 	  // form의 display 속성을 변경시키는 event handler
 	  for(let i=0; i<updateBtn.length; i++) {
@@ -199,6 +200,5 @@ List<BoardDto> dtos = dao.comment(boardId);
 		  }
 	  })
    	</script>
-
 </body>
 </html>

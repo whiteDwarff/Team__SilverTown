@@ -22,7 +22,7 @@
 <%= request.getParameter("content") %>
 <%= request.getParameter("title") %>
 <script>
-	alert("수정되었습니다.");
+  alert("수정되었습니다.");
 	location.href="board_content.jsp?title=<%=title%>";
 </script>
 
