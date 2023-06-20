@@ -2,35 +2,48 @@
 
 h2 {
 	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 10px;
+	margin-bottom: 50px;
 }
 
 #update-form {
 	text-align: center;
 	border: 1px solid #dadada;
-	margin: 50px auto;
-	padding: 30px;
+	border-radius: 20px;
+	margin: 100px auto;
+	padding: 50px 30px;
 	max-width: 500px;
 	background: #fff;
-	
+	box-shadow: 2px 2px 7px 2px rgb(233, 233, 233);
 }
 
 input {
 	display: block;
 	text-align: center;
-	margin: 10px auto;
-	width: 100%;
+	margin: 15px auto;
+	width: calc(100% - 50px);
+	padding-left: 50px;
 	height: 50px;
 	font-weight: 700;
 	font-size: large;
+	border: 1px solid #ccc;
+	outline:none;
+	border-radius: 10px;
+	text-align: left;
+	font-size: 14px;
+}
+input[name=password]::placeholder,
+input[name=newPwd]::placeholder,
+input[name=newPwd2]::placeholder {
+	color: #ccc;
+	font-size: 14px;
+	font-weight: bold;
 }
 
 .submit-button {
 	margin-top: 30px;
 	margin-bottom: 15px;
 	cursor: pointer;
-	background-color: #1fbc02;
+	background-color: #73d09a;
 	color: white;
 	width: 100%;
 	font-weight: bold; 
@@ -50,3 +63,24 @@ input {
 #p-zone{
 	margin-bottom: 30px;
 }
+.button-wrap {
+	display: flex;  
+	justify-content: space-around;
+	margin-top: 50px;
+}
+.flex-button {
+	cursor: pointer;
+	border-style: none;
+	display: block;
+	width: 40%;
+	border-radius: 10px;
+	padding: 10px 0;
+	font-weight:bold;
+	color: #fff;
+	font-size: 14px;
+}
+#join-submit-btn {
+	background-color: #73d09a;
+}
+.flex-button:last-child {
+	background-color: #FF6B6B;

@@ -1,27 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*" %>
-<%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>
-<%@page import="javax.naming.InitialContext"%>
+<%@page import="Myeong.Hun.VideoListDao"%>
+<%@page import="Myeong.Hun.VideoListDto"%>
+<%@page import="java.util.ArrayList"%>
 <%
-	String lang = request.getParameter("lang");
 request.setCharacterEncoding("utf-8");
 
-InitialContext initCtx = new InitialContext();
+String lang = request.getParameter("lang");
 
-Context ctx = (Context)initCtx.lookup("java:comp/env");
 
-DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
+VideoListDao dao = new VideoListDao();
+ArrayList<VideoListDto> dtos = dao.list(lang);
 
-String sql = "select * from video where category_id = ?";
 
-	try(Connection con = ds.getConnection(); 
-			PreparedStatement pstmt = con.prepareStatement(sql);) {
-		
-		pstmt.setString(1, lang);
-		
-		ResultSet rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html>
 <html>
@@ -47,26 +39,19 @@ String sql = "select * from video where category_id = ?";
 
   <section id="card-box">
     <article class="wrap">
-  	<%
-		while(rs.next()) {
-		%>
+ <%for(VideoListDto dto : dtos){%>
   	 <div class="url-card">
-   	 <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%= lang %>">
+  	 <a href="education-page2.jsp?title=<%=dto.getTitle()%>&content=<%=dto.getDescription()%>&url=<%=dto.getUrl()%>&lang=<%=dto.getCategory_id()%>">
      <!-- ######### java 코드 삽입 영역#######-->
      <!-- title -->
-     <span class="url-title"><%= rs.getString("title")%></span>
+     <span class="url-title"><%=dto.getTitle()%></span>
      <!-- content -->
-     <span class="url-content"><%= rs.getString("description") %></span>
+     <span class="url-content"><%=dto.getDescription()%></span>
      <!-- url -->
-     <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
+     <embed controls=0 src="https://img.youtube.com/vi/<%=dto.getUrl()%>/maxresdefault.jpg" allowfullscreen></embed>
    </a>
  </div>
-  <%
-		}
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
-  %>
+<%} %>
     </article>
   </section> 
   

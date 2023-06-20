@@ -1,28 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.sql.*"%>
-<%@page import="javax.sql.DataSource"%>
-<%@page import="java.sql.*"%>
-<%@page import="javax.naming.Context"%>
-<%@page import="javax.naming.InitialContext"%>
+<%@page import="Myeong.Hun.VideoListDao"%>
+<%@page import="Myeong.Hun.VideoListDto"%>
+<%@page import="java.util.ArrayList"%>
+
 <%
  request.setCharacterEncoding("utf-8");
- String search = request.getParameter("search"); // 입력 폼에서 전달된 검색어 받아오기
+ String title = request.getParameter("search"); // 입력 폼에서 전달된 검색어 받아오기
 
-  // JDBC 드라이버 로드 및 DB 연결
- Class.forName("org.mariadb.jdbc.Driver");
- InitialContext initCtx = new InitialContext();
-
- Context ctx = (Context)initCtx.lookup("java:comp/env");
-
- DataSource ds= (DataSource)ctx.lookup("jdbc/project01_db");
-  String sql = "SELECT * FROM video WHERE title LIKE ?";
-
- try(Connection con = ds.getConnection(); 
-			PreparedStatement pstmt = con.prepareStatement(sql);){
-
-  // SQL 문 실행하여 결과값 가져오기
-  pstmt.setString(1, "%" + search + "%"); // LIKE 연산자 사용하여 검색어와 일치하는 데이터 조회
-  ResultSet rs = pstmt.executeQuery();
+ VideoListDao dao = new VideoListDao();
+ ArrayList<VideoListDto> dtos = dao.search(title);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,27 +33,19 @@
   
   <section id="card-box">
     <article class="wrap">
-		<%
-	  // 조회된 데이터 출력하기
-	  while (rs.next()) {
-    %>
-   <div class="url-card">
-   	 <a href="education-page.jsp?title=<%=rs.getString("title")%>&content=<%=rs.getString("description")%>&url=<%=rs.getString("url")%>&lang=<%=rs.getString("category_id")%>">
+ <%for(VideoListDto dto : dtos){%>
+  	 <div class="url-card">
+  	 <a href="education-page.jsp?title=<%=dto.getTitle()%>&content=<%=dto.getDescription()%>&url=<%=dto.getUrl()%>&lang=<%=dto.getCategory_id()%>">
      <!-- ######### java 코드 삽입 영역#######-->
      <!-- title -->
-     <span class="url-title"><%= rs.getString("title")%></span>
+     <span class="url-title"><%=dto.getTitle()%></span>
      <!-- content -->
-     <span class="url-content"><%= rs.getString("description") %></span>
+     <span class="url-content"><%=dto.getDescription()%></span>
      <!-- url -->
-     <embed controls=0 src="https://img.youtube.com/vi/<%= rs.getString("url") %>/maxresdefault.jpg" allowfullscreen></embed>
+     <embed controls=0 src="https://img.youtube.com/vi/<%=dto.getUrl()%>/maxresdefault.jpg" allowfullscreen></embed>
    </a>
  </div>
-	 <%
-	  	}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	%>
+<%} %>
     </article>
   </section> 
   
