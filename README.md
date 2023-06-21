@@ -1,4 +1,4 @@
-# 2023 2학년 1학기 JSP 프로젝트
+
 <h1 align="center"> CodeGrow </h1>
 <h3 align="center">by SilverTown (홍서현, 박훈명, 강문호)</h3>
 
