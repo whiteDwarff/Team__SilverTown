@@ -31,6 +31,38 @@ public class BoardDao {
       
       return con;
    }
+
+   public void boradInsert(BoardDto dto) {
+	   String sql = "INSERT INTO board (title, content, author_id) SELECT ?, ?, id FROM member WHERE name = ?";
+
+	   try(Connection con = getConnection(); 
+		         PreparedStatement pstmt = con.prepareStatement(sql);){
+
+		      pstmt.setString(1, dto.getTitle());
+		      pstmt.setString(2, dto.getContent());
+		      pstmt.setString(3,dto.getAuthor_name());
+		      int i = pstmt.executeUpdate();
+
+		}catch(Exception e){
+		   e.printStackTrace();
+		}
+   }
+   // amin 계정의 게시글 작성
+   public void adminBoardInsert(BoardDto dto) {
+	   String sql = "INSERT INTO board (title, content, author_id) values (?, ?, (select id from member where name = admin)";
+
+	   try(Connection con = getConnection(); 
+		         PreparedStatement pstmt = con.prepareStatement(sql);){
+
+		      pstmt.setString(1, dto.getTitle());
+		      pstmt.setString(2, dto.getContent());
+		      pstmt.setString(3,dto.getAuthor_name());
+		      int i = pstmt.executeUpdate();
+
+		}catch(Exception e){
+		   e.printStackTrace();
+		}
+   }
 // 게시물 작성, 수정, 삭제
 public void boardFunction(BoardDto dto, String keyword) {
    if (keyword.equals("I")) {
@@ -196,11 +228,10 @@ public void deleteBoard(String boardId) {
 
        return commentList;
    }
-   
-   //모든 게시글을 가져오기
+   // admin 게시글을 제외한 모든 게시글을 가져오기
    public ArrayList<BoardDto> boardList(){
       String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name "
-            + "FROM board INNER JOIN member ON board.author_id = member.id ORDER BY 1 Desc;";
+            + "FROM board INNER JOIN member ON board.author_id = member.id where member.name <> 'admin' ORDER BY 1 Desc;";
       ArrayList<BoardDto> dtos = new ArrayList<BoardDto>();
    
    
@@ -223,7 +254,31 @@ public void deleteBoard(String boardId) {
       }
       return dtos;
    }
+   // admin 계정의 공지사항 불러오기 
+   public ArrayList<BoardDto> adminBoardList(){
+      String sql = "SELECT board.*, DATE(board.created_at) as created_date, member.name as author_name "
+            + "FROM board INNER JOIN member ON board.author_id = member.id where member.name ='admin' ORDER BY 1 Desc;";
+      ArrayList<BoardDto> dtos = new ArrayList<BoardDto>();
    
+   
+   try(Connection con = getConnection();
+      Statement stmt = con.createStatement();)
+   
+   { ResultSet rs = stmt.executeQuery(sql);
+      
+      while (rs.next()) {
+         BoardDto dto = new BoardDto();
+         dto.setTitle(rs.getString("title"));
+         dto.setAuthor_name(rs.getString("author_name"));
+         dto.setCreated_date(rs.getString("created_date"));
+         dtos.add(dto);
+      }
+   }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+      return dtos;
+   }
    
    //댓글 작성, 수정, 삭제
 public void commentFunction(BoardDto dto,String keyword) {

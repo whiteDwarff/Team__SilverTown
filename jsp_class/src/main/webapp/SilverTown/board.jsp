@@ -68,7 +68,7 @@
 	<script src="./script/header.js"></script>
 	<script>
 		const li = document.querySelectorAll('nav a');
-		const liLast = document.querySelector('nav a:last-child');
+		const liLast = document.querySelector('nav a:nth-child(6)');
 		for (let i = 0; i < li.length; i++) {
 			li[i].style.filter = 'blur(1px)';
 		}

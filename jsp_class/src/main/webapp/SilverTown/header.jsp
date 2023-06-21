@@ -24,6 +24,7 @@
         <a href="header-select.jsp?lang=<%= 4 %>">JSP</a>
         <a href="header-select.jsp?lang=<%= 5 %>">Spring</a>
         <a href="board.jsp">QnA</a>
+        <a href="news.jsp">News</a>
       </nav>
       <div class="sub-gnb">
         <img src="./img/search.png" alt="">

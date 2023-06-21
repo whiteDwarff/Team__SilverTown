@@ -6,7 +6,7 @@
    <meta charset="UTF-8">
     <title>CodeGrow-join</title>
     <link href="./img/icon.png" rel="shortcut icon" type="image/x-icon">
-      <link rel="stylesheet" href="./style/login2.css">
+      <link rel="stylesheet" href="./style/login.css">
 </head>
 <body>
 

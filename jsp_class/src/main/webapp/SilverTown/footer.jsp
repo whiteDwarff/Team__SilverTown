@@ -19,6 +19,7 @@
 footer {
 	text-align: center;
 	background: rgb(244, 244, 244, 0.5);
+	width : 100%;
 	margin-top: 100px;
 	padding: 20px 0;
 }

@@ -88,27 +88,31 @@ header {
 	font-size: 13px;
 	margin-bottom: 5px;
 }
+
 .margin-bottom {
 	margin: 100px 0 50px 0;
 }
+
 #output {
 	width: calc(100% - 10%);
 	margin-left: 10%;
- 	/* border: 1px solid black; */
- }
- #code-editor .wrap {
- 	position: relative;
- }
- #run-button {
- 	position: absolute;
- 	bottom: -60px;
- 	right: 0;
- 	display: block;
- 	padding: 10px 30px;
- 	cursor: pointer;
- 	border: none;
- 	background-color: #73d09a;
- 	color: #fff;
- 	font-weight: bold;
- 	border-radius: 5px;
- }
+	/* border: 1px solid black; */
+}
+
+#code-editor .wrap {
+	position: relative;
+}
+
+#run-button {
+	position: absolute;
+	bottom: -60px;
+	right: 0;
+	display: block;
+	padding: 10px 30px;
+	cursor: pointer;
+	border: none;
+	background-color: #73d09a;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 5px;
+}

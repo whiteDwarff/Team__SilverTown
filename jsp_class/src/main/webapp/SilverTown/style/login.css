@@ -57,6 +57,7 @@ main img {
 #login {
 	width: 40%;
 	background-color: #fff;
+	margin-left:-62px;
 }
 
 #join {
